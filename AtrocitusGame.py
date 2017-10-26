@@ -1,5 +1,8 @@
 #Author: Kevin McLester
+#My gamekicks ass
+#This is another comment for a commit
 import sys
+import random
 playerScore=0
 playerName=""
 key=0
@@ -12,6 +15,8 @@ visitElevator=0
 visitVentilation=0
 
 
+
+#This is a comment
 #Title function plays the title
 def Title():
         print("ATROCITUS")
@@ -64,6 +69,7 @@ def inTritle():
         Intro()
         
 #This is the Mainframe room
+#3
 def mainFrame():
 
                     global playerScore
@@ -210,7 +216,8 @@ def mainFrame():
                                         print("Invalid Command")
                                 
                         
-#This is the Escape Pod room                        
+#This is the Escape Pod room
+#2
 def escapePods():
         global playerName
         global playerScore
@@ -315,7 +322,8 @@ def escapePods():
                         else:
                                 print("Invalid Command")
                 
-#This is the eggshell room                
+#This is the eggshell room
+#1
 def eggRoom():
         global playerScore
         global playerName
@@ -421,7 +429,7 @@ def eggRoom():
                         else:
                                         print("Invalid Command")
 
-
+#5
 def ventiLation():
         global visitVentilation
         global playerName
@@ -453,7 +461,7 @@ def ventiLation():
                         if action == ("go lobby"):
                                 print("You slide down the vent shaft and fall through into the room you were earlier")
                                 i=1
-                                elevatorRoom()
+                                Locations[0]()
                         elif action == ("stay"):
                                 print("you stay in the vents and waitfor the screams and rumbling as they grow louder and louder")
                                 input("Press enter to continue")
@@ -501,7 +509,7 @@ def ventiLation():
                         if action == ("go lobby"):
                                 print("You slide down the vent shaft and fall through into the room you were earlier")
                                 i=1
-                                elevatorRoom()
+                                Locations[0]()
                         elif action == ("stay"):
                                 print("you stay in the vents and waitfor the screams and rumbling as they grow louder and louder")
                                 input("Press enter to continue")
@@ -523,7 +531,7 @@ def ventiLation():
                         else:
                                 print("Invalid Command")
 
-
+#4
 def elevatoR():
         
         global visitElevator
@@ -554,7 +562,7 @@ def elevatoR():
                         action = input()
                         if action == ("go up"):
                                 print("You climb up through the hatch and into the maitnance shaft, from there you see a ventilation shaft and go inside")
-                                ventiLation()
+                                Locations[5]()
                         elif action == ("press button"):
                                 print("The doors open and you're immeadiately set upon by a vicious Alien, it digs its claws through your eyes, puncturing your brain and killing you")
                                 print("THE END")
@@ -594,7 +602,7 @@ def elevatoR():
                         action = input()
                         if action == ("go up"):
                                 print("You climb up through the hatch and into the maitnance shaft, from there you see a ventilation shaft and go inside")
-                                ventiLation()
+                                Locations[5]()
                         elif action == ("press button"):
                                 print("The doors open and you're immeadiately set upon by a vicious Alien, it digs its claws through your eyes, puncturing your brain and killing you")
                                 print("THE END")
@@ -611,8 +619,105 @@ def elevatoR():
                                 sys.exit()
                         else:
                                 print("Invalid Command")
-                                
-#This is the Elevator Room aka the Starting area and main hub                                
+
+
+#7
+def trashCompactor():
+        global playerName
+        print("You fall into a dimmly lit room filled with trash.")
+        print("You notice a silver door and a paper attached to it.")
+        print("The paper says (Don't trust KAL, power must remain off!)")
+        print("You open the door and you see a control panel. On the panel there is a button that say teleport")
+        actionTrash = input("What do you do?")
+        if actionTrash == "press button":
+                print("A large grass tube falls over you and ametal rod hangs over you")
+                print("TELEPORTING TO RANDOM LOCATION")
+                Location[random.randrange(0,7)]()
+        else:
+                print("Well you didn't press the button, hi I'm Kevin, the games developer aka xYukoNx.")
+                print("you typed: "+actionTrash+" which is not an option. Thats obvious. Which means you're an idiot.")
+                print("As punishment for your idiocy I'm sending you to a screen that is going to be your prison.")
+                while True is True:
+                      print(playerName+" is an idiot!")
+#6
+def trashChute():
+        global playerName
+        global playerScore
+        global turnNumber
+        x=0
+        pointCount = 0
+        print("You plummet down the shaft in darkness")
+        actionTrash = input("Lean left or right: ")
+        while x == 0:
+                if actionTrash == "right":
+                        pointCount = pointCount+1
+                        break
+                elif actionTrash == "left":
+                        pointCount=pointCount
+                        break
+                elif actionTrash == "quit":
+                        sys.exit()
+                else:
+                        print("invalid command try again")
+        actionTrash = input("Lean left or right: ")
+        while x == 0:
+                if actionTrash == "right":
+                        pointCount = pointCount+1
+                        break
+                elif actionTrash == "left":
+                        pointCount=pointCount
+                        break
+                elif actionTrash == "quit":
+                        sys.exit()
+                else:
+                        print("invalid command try again")
+        actionTrash = input("Lean left or right: ")
+        while x == 0:
+                if actionTrash == "left":
+                        pointCount = pointCount+1
+                        break
+                elif actionTrash == "right":
+                        pointCount=pointCount
+                        break
+                elif actionTrash == "quit":
+                        sys.exit()
+                else:
+                        print("invalid command try again")
+        actionTrash = input("Lean left or right: ")
+        while x == 0:
+                if actionTrash == "right":
+                        pointCount = pointCount+1
+                        break
+                elif actionTrash == "left":
+                        pointCount=pointCount
+                        break
+                elif actionTrash == "quit":
+                        sys.exit()
+                else:
+                        print("invalid command try again")
+        actionTrash = input("Lean left or right: ")
+        while x == 0:
+                if actionTrash == "left":
+                        pointCount = pointCount+1
+                        break
+                elif actionTrash == "right":
+                        pointCount=pointCount
+                        break
+                elif actionTrash == "quit":
+                        sys.exit()
+                else:
+                        print("invalid command try again")
+        if pointCount >= 4:
+                Location[7]()
+        elif pointCount < 4:
+                print("You hit a sharp part of the chute and get impaled upon it, you bleed out and die.")
+                print("THE END!")
+                sys.exit()
+        else:
+                pass
+                      
+#This is the Elevator Room aka the Starting area and main hub
+#0
 def elevatorRoom():
         global playerName
         global playerScore
@@ -626,14 +731,14 @@ def elevatorRoom():
             turnNumber=turnNumber+1
             
             if purpose == ("go left"):
-               eggRoom()
+               Locations[1]()
             
             elif purpose == ("go forward"):
                 if key == 0:
                     print("The door is locked")
                     input("Press enter to continue...")
                 else:
-                        mainFrame()
+                        Locations[3]()
         
 
             elif purpose == ("go right"):
@@ -642,7 +747,7 @@ def elevatorRoom():
                     input("Press enter to continue...")
                     
                 else:
-                    escapePods()
+                    Locations[2]()
 
             elif purpose == ("quit"):
                     print(playerName+"'s Final Score: "+playerScore)
@@ -653,7 +758,7 @@ def elevatorRoom():
                     sys.exit()
 
             elif purpose == ("go back"):
-                    elevatoR()
+                    Locations[4]()
                     
             elif purpose == ("help"):
                     print("Command List: go back, go foraward, go left, go right, quit, help")
@@ -661,25 +766,27 @@ def elevatorRoom():
             else:
                 print("Invalid Command")
                 
-
-        
-
+#This is my list of the areas        
+Locations = [elevatorRoom, eggRoom, escapePods, mainFrame, elevatoR, ventiLation, trashChute, trashCompactor]
         
 #This is the main function that runs the other functions                          
 def main():
         global playerName
         global playerScore
         global key
+        global Locations
         c=0
         z=0
         
         
         
         inTritle()
-        elevatorRoom()
+        
+        Locations[0]()
+        
 
          
-        
+       
 main()
 
 
