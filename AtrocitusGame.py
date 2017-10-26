@@ -632,7 +632,11 @@ def trashCompactor():
         if actionTrash == "press button":
                 print("A large grass tube falls over you and ametal rod hangs over you")
                 print("TELEPORTING TO RANDOM LOCATION")
+<<<<<<< HEAD
                 Locations[random.randrange(0,7)]()
+=======
+                Location[random.randrange(0,7)]()
+>>>>>>> 41fce3a88fa66b3963a499a47c98f0697cba8643
         else:
                 print("Well you didn't press the button, hi I'm Kevin, the games developer aka xYukoNx.")
                 print("you typed: "+actionTrash+" which is not an option. Thats obvious. Which means you're an idiot.")
@@ -708,7 +712,11 @@ def trashChute():
                 else:
                         print("invalid command try again")
         if pointCount >= 4:
+<<<<<<< HEAD
                 Locations[7]()
+=======
+                Location[7]()
+>>>>>>> 41fce3a88fa66b3963a499a47c98f0697cba8643
         elif pointCount < 4:
                 print("You hit a sharp part of the chute and get impaled upon it, you bleed out and die.")
                 print("THE END!")
@@ -739,9 +747,12 @@ def elevatorRoom():
                     input("Press enter to continue...")
                 else:
                         Locations[3]()
+<<<<<<< HEAD
             elif purpose == ("go trash chute"):
                     print("You walk over to the trash chute and look down it, suddenly you slip and fall in the trash chute.")
                     Locations[6]()
+=======
+>>>>>>> 41fce3a88fa66b3963a499a47c98f0697cba8643
         
 
             elif purpose == ("go right"):
