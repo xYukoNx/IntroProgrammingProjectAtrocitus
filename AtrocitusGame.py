@@ -2,6 +2,7 @@
 #My gamekicks ass
 #This is another comment for a commit
 import sys
+import random
 playerScore=0
 playerName=""
 key=0
@@ -622,10 +623,22 @@ def elevatoR():
 
 #7
 def trashCompactor():
+        global playerName
         print("You fall into a dimmly lit room filled with trash.")
         print("You notice a silver door and a paper attached to it.")
         print("The paper says (Don't trust KAL, power must remain off!)")
-        print(
+        print("You open the door and you see a control panel. On the panel there is a button that say teleport")
+        actionTrash = input("What do you do?")
+        if actionTrash == "press button":
+                print("A large grass tube falls over you and ametal rod hangs over you")
+                print("TELEPORTING TO RANDOM LOCATION")
+                Location[random.randrange(0,7)]()
+        else:
+                print("Well you didn't press the button, hi I'm Kevin, the games developer aka xYukoNx.")
+                print("you typed: "+actionTrash+" which is not an option. Thats obvious. Which means you're an idiot.")
+                print("As punishment for your idiocy I'm sending you to a screen that is going to be your prison.")
+                while True is True:
+                      print(playerName+" is an idiot!")
 #6
 def trashChute():
         global playerName
@@ -700,6 +713,8 @@ def trashChute():
                 print("You hit a sharp part of the chute and get impaled upon it, you bleed out and die.")
                 print("THE END!")
                 sys.exit()
+        else:
+                pass
                       
 #This is the Elevator Room aka the Starting area and main hub
 #0
