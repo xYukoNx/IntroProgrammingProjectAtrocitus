@@ -14,6 +14,7 @@ visitEscaP=0
 visitElevator=0
 visitVentilation=0
 Inventory = []
+Flashlight="flashlight"
 
 
 
@@ -402,9 +403,10 @@ def eggRoom():
                         actionOne = input()
                                 
                         if actionOne == ("nothing") or actionOne == ("stand still"):
-                                print("The goop stops dripping and you find a key on the floor and pick it up.")
+                                print("The goop stops dripping and you find a key and a black note that says 5158 on the floor and pick it up.")
                                 key = 1
                                 Inventory.append("key")
+                                Inventory.append("black note")
                                 input("Press enter to continue...")
                                 playerScore=playerScore+10
                                 print("Score: "+str(playerScore))
@@ -556,7 +558,7 @@ def elevatoR():
                 input("Press enter to continue")
                 playerScore=playerScore+10
                 print("Score: "+str(playerScore))
-                print("The Buttons on the elevator are all removed except for the open door button and the servicce button, Above you there is a hatch that allows maitnance to access the shaft")
+                print("The Buttons on the elevator are all unlit except for the open door button and the servicce button, Above you there is a hatch that allows maitnance to access the shaft")
                 input("Press enter to continue...")
                 playerScore=playerScore+10
                 print("Score: "+str(playerScore))
@@ -573,7 +575,19 @@ def elevatoR():
                                 sys.exit()
                                 i=1
                         elif action == ("help"):
-                                print("Command List: go up, press button, help, quit")
+                                print("Command List: go up, press button, enter code, help, quit")
+                        elif action == ("enter code"):
+                                print("The buttons on the panel go from floors 0to9")
+                                password = input("You go to the panel and prepare to press the numbered buttons: ")
+                                if password == ("5158"):
+                                        print("CLICK*")
+                                        print("A secret compartment opens and contains a flashlight and a large amount of batteries")
+                                        print("You take the batteries and flashlight and put them in your bag.")
+                                        Inventory.append("flashlight")
+                                        Inventory.append("batteries")
+                                else:
+                                        print("Nothing Happened")
+                                
                         elif action == ("quit"):
                                 print(playerName+"'s Final Score: "+playerScore)
                                 print("Thank you for playing Atrocitus "+playerName+"!")
@@ -613,7 +627,18 @@ def elevatoR():
                                 sys.exit()
                                 i=1
                         elif action == ("help"):
-                                print("Command List: go up, press button, help, quit")
+                                print("Command List: go up, press button, help, quit, enter code")
+
+                        elif action == ("enter code"):
+                                print("The buttons on the panel go from floors 0to9")
+                                password = input("You go to the panel and prepare to press the numbered buttons: ")
+                                if password == ("5158"):
+                                        print("CLICK*")
+                                        print("A secret compartment opens and contains a flashlight and a large amount of batteries")
+                                        print("You take the batteries and flashlight and put them in your bag.")
+                                        Inventory.append("flashlight")
+                                        Inventory.append("batteries")
+                        
                         elif action == ("quit"):
                                 print(playerName+"'s Final Score: "+playerScore)
                                 print("Thank you for playing Atrocitus "+playerName+"!")
@@ -632,11 +657,16 @@ def trashCompactor():
         print("You notice a silver door and a paper attached to it.")
         print("The paper says (Don't trust KAL, power must remain off!)")
         print("You open the door and you see a control panel. On the panel there is a button that say teleport")
+        print("What do you do?")
         actionTrash = input("What do you do?")
         if actionTrash == "press button":
-                print("A large grass tube falls over you and ametal rod hangs over you")
+                print("A large glass tube falls over you and a metal rod hangs over you")
                 print("TELEPORTING TO RANDOM LOCATION")
-                Locations[random.randrange(0,7)]()
+                rando=random.randrange(0,2)
+                if rando == 1:
+                        rando = rando - 1
+                Navigation[4][rando]()
+                
         else:
                 print("Well you didn't press the button, hi I'm Kevin, the games developer aka xYukoNx.")
                 print("you typed: "+actionTrash+" which is not an option. Thats obvious. Which means you're an idiot.")
@@ -719,6 +749,46 @@ def trashChute():
                 sys.exit()
         else:
                 pass
+#40
+def secretRoom():
+        
+        print("You've teleported into a dark room with no light")
+        i=0
+        while i == 0:
+                print("What do you do?")
+                action = input()
+                if action == "flashlight" and "flashlight" in Inventory:
+                        print("You turn on your flashlight and look around")
+                        print("There is a teleporter and a safe")
+                        while i==0:
+                                print("what do you do?")
+                                action2 = input()
+                                if action2 == ("safe"):
+                                        password = input("Please enter in the 4digit password: ")
+                                        if password == ("5158"):
+                                                print("The safe opens and contains an M16 Rifle and 6 fully loaded magazines")
+                                                print("You take the gun and its ammo and put the ammo in your bag whilst swinging the gun around your shoulder using the strap.")
+                                                Inventory.append("M16")
+                                                Inventory.append("Ammo")
+                                        else:
+                                                print("That password is invalid")
+                                elif action2 == ("teleporter"):
+                                        print("You walk over to the teleporter and hit the button")
+                                        Navigation[4][2]
+                else:
+                        print("Having no sense of direction and no source of light you wander about until you die.")
+                        print(playerName+"'s Final Score: "+playerScore)
+                        print("Goodbye!")
+                        print("THE END!")
+                        input("Press enter to end game...")
+                        sys.exit()
+                        
+                
+        
+        
+#42
+def jungleRoom():
+        pass
                       
 #This is the Elevator Room aka the Starting area and main hub
 #0
@@ -784,10 +854,11 @@ Locations = [elevatorRoom, eggRoom, escapePods, mainFrame, elevatoR, ventiLation
 Location = ["Elevator Room = 0", "egg room = 1", "Escape Pods = 2", "Main Frame = 3", "Elevator = 4", "Vents = 5(Attic)", "Trash Chute = 6", "Trash Compactor = 7(Basement"]
 navMap =[ [None, "Main Frame", None]
           ,["eggRoom", "elevatorRoom", "escapePods"] ]
-Navigation = [ [None, mainFrame, None]
+Navigation = [       [None, mainFrame, None]
                     ,[eggRoom, elevatorRoom, escapePods]
                     ,[None, elevatoR, trashChute]
-                    ,[None, ventiLation, trashCompactor]]
+                    ,[None, ventiLation, trashCompactor]
+                    ,[secretRoom, None, jungleRoom]]
 #elevatorRoom = 11. eggRoom = 10. escapePods = 12. mainFrame = 01. elevatoR = 21. trashChute = 22. ventiLation = 31. trashCompactor = 32.
 
 #This function displays the map to the players                
