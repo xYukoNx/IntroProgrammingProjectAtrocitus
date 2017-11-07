@@ -13,6 +13,7 @@ visitElevR=0
 visitEscaP=0
 visitElevator=0
 visitVentilation=0
+Inventory = []
 
 
 
@@ -76,6 +77,7 @@ def mainFrame():
                     global playerName
                     global turnNumber
                     global visitMainF
+                    h = 0
                     visitMainF=visitMainF+1
                     if visitMainF == 1:
                             print("You open the door with the key you found and go in.")
@@ -331,6 +333,7 @@ def eggRoom():
         global turnNumber
         global visitEggS
         visitEggS=visitEggS+1
+        
         if visitEggS != 1:
         
                 i=0        
@@ -351,8 +354,7 @@ def eggRoom():
                         actionOne = input()
                                 
                         if actionOne == ("nothing") or actionOne == ("stand still"):
-                                print("The goop stops dripping and you find a key on the floor and pick it up.")
-                                key = 1
+                                print("The goop stops dripping")
                                 input("Press enter to continue...")
                                 
                                 print("Score: "+str(playerScore))
@@ -402,6 +404,7 @@ def eggRoom():
                         if actionOne == ("nothing") or actionOne == ("stand still"):
                                 print("The goop stops dripping and you find a key on the floor and pick it up.")
                                 key = 1
+                                Inventory.append("key")
                                 input("Press enter to continue...")
                                 playerScore=playerScore+10
                                 print("Score: "+str(playerScore))
@@ -418,7 +421,7 @@ def eggRoom():
                                 input("Press enter to end game...")
                                 sys.exit()
 
-                        elif purpose == ("quit"):
+                        elif actionOne == ("quit"):
                             print(playerName+"'s Final Score: "+playerScore)
                             print("Thank you for playing Atrocitus "+playerName+"!")
                             print("Goodbye!")
@@ -443,6 +446,7 @@ def ventiLation():
                 playerScore=playerScore+10
                 print("Score: "+str(playerScore))
                 print("Potassium, Aluminium, , Iodine, Sulfur, , Barium, Darmstadtium")
+                Inventory.append("chem note")
                 input("Press enter to continue")
                 playerScore=playerScore+10
                 print("Score: "+str(playerScore))
@@ -708,7 +712,7 @@ def trashChute():
                 else:
                         print("invalid command try again")
         if pointCount >= 4:
-                Locations[7]()
+                Navigation[3][2]()
         elif pointCount < 4:
                 print("You hit a sharp part of the chute and get impaled upon it, you bleed out and die.")
                 print("THE END!")
@@ -731,20 +735,23 @@ def elevatorRoom():
             turnNumber=turnNumber+1
             
             if purpose == ("go left"):
-               Locations[1]()
+               Navigation[1][0]()
             
             elif purpose == ("go forward"):
                 if key == 0:
                     print("The door is locked")
                     input("Press enter to continue...")
                 else:
-                        Locations[3]()
+                        Navigation[0][1]()
             elif purpose == ("go trash chute"):
                     print("You walk over to the trash chute and look down it, suddenly you slip and fall in the trash chute.")
-                    Locations[6]()
+                    Navigation[2][2]()
 
             elif purpose == ("map"):
                     Map()
+
+            elif purpose == ("inventory"):
+                    openInventory()
         
 
             elif purpose == ("go right"):
@@ -753,7 +760,7 @@ def elevatorRoom():
                     input("Press enter to continue...")
                     
                 else:
-                    Locations[2]()
+                    Navigation[1][2]()
 
             elif purpose == ("quit"):
                     print(playerName+"'s Final Score: "+playerScore)
@@ -764,7 +771,7 @@ def elevatorRoom():
                     sys.exit()
 
             elif purpose == ("go back"):
-                    Locations[4]()
+                    Navigation[2][1]()
                     
             elif purpose == ("help"):
                     print("Command List: go back, go foraward, go left, go right, quit, help")
@@ -775,9 +782,22 @@ def elevatorRoom():
 #This is my list of the areas        
 Locations = [elevatorRoom, eggRoom, escapePods, mainFrame, elevatoR, ventiLation, trashChute, trashCompactor]
 Location = ["Elevator Room = 0", "egg room = 1", "Escape Pods = 2", "Main Frame = 3", "Elevator = 4", "Vents = 5(Attic)", "Trash Chute = 6", "Trash Compactor = 7(Basement"]
+navMap =[ [None, "Main Frame", None]
+          ,["eggRoom", "elevatorRoom", "escapePods"] ]
+Navigation = [ [None, mainFrame, None]
+                    ,[eggRoom, elevatorRoom, escapePods]
+                    ,[None, elevatoR, trashChute]
+                    ,[None, ventiLation, trashCompactor]]
+#elevatorRoom = 11. eggRoom = 10. escapePods = 12. mainFrame = 01. elevatoR = 21. trashChute = 22. ventiLation = 31. trashCompactor = 32.
+
+#This function displays the map to the players                
 def Map():
         print(Location)
-#This is the main function that runs the other functions                          
+        print(Navigation)
+#This displays the players inventory to the player.
+def openInventory():
+        print(Inventory)
+#This runs the game
 def main():
         global playerName
         global playerScore
@@ -790,11 +810,9 @@ def main():
         
         inTritle()
         
-        Locations[0]()
+        Navigation[1][1]()
         
 
          
        
 main()
-
-
