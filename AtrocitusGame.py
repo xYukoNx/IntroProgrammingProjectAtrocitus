@@ -15,6 +15,7 @@ visitElevator=0
 visitVentilation=0
 Inventory = []
 Flashlight="flashlight"
+lobbymap="map"
 
 
 
@@ -486,6 +487,16 @@ def ventiLation():
                                 print("THE END!")
                                 input("Press enter to end game...")
                                 sys.exit()
+                        elif action == "map":
+                                Map()
+
+                        elif action == "inventory":
+                                openInventory()
+
+                        elif action == "look":
+                                print("You find a note that has the following sequence of chemicals and spaces written on it:")
+                                print("As you move through the shaft you hear high pitched scream coming from behind you as well as a rumbling in the vents.")
+                                print("You make it to a part of the vent labeled Lobby")
                         else:
                                 print("Invalid Command")
 
@@ -526,7 +537,7 @@ def ventiLation():
                                 print("THE END!")
                                 sys.exit()
                         elif action == ("help"):
-                                print("Command List: stay, go lobby, help, quit")
+                                print("Command List: stay, go lobby, help, quit, look")
                         elif action == ("quit"):
                                 print(playerName+"'s Final Score: "+playerScore)
                                 print("Thank you for playing Atrocitus "+playerName+"!")
@@ -534,6 +545,14 @@ def ventiLation():
                                 print("THE END!")
                                 input("Press enter to end game...")
                                 sys.exit()
+                        elif action == "look":
+                                print("You find a note that has the following sequence of chemicals and spaces written on it:")
+                                print("As you move through the shaft you hear high pitched scream coming from behind you as well as a rumbling in the vents.")
+                                print("You make it to a part of the vent labeled Lobby")
+                        elif action == "map":
+                                Map()
+                        elif action == "inventory":
+                                openInventory()
                         else:
                                 print("Invalid Command")
 
@@ -568,7 +587,7 @@ def elevatoR():
                         action = input()
                         if action == ("go up"):
                                 print("You climb up through the hatch and into the maitnance shaft, from there you see a ventilation shaft and go inside")
-                                Locations[5]()
+                                Navigation[3][1]()
                         elif action == ("press button"):
                                 print("The doors open and you're immeadiately set upon by a vicious Alien, it digs its claws through your eyes, puncturing your brain and killing you")
                                 print("THE END")
@@ -576,6 +595,13 @@ def elevatoR():
                                 i=1
                         elif action == ("help"):
                                 print("Command List: go up, press button, enter code, help, quit")
+
+                        elif action == "look":
+                                print("You fall into a dimmly lit room filled with trash.")
+                                print("You notice a silver door and a paper attached to it.")
+                                print("The paper says (Don't trust KAL, power must remain off!)")
+                                print("You open the door and you see a control panel. On the panel there is a button that say teleport")
+                                
                         elif action == ("enter code"):
                                 print("The buttons on the panel go from floors 0to9")
                                 password = input("You go to the panel and prepare to press the numbered buttons: ")
@@ -620,14 +646,19 @@ def elevatoR():
                         action = input()
                         if action == ("go up"):
                                 print("You climb up through the hatch and into the maitnance shaft, from there you see a ventilation shaft and go inside")
-                                Locations[5]()
+                                Navigation[3][1]()
                         elif action == ("press button"):
                                 print("The doors open and you're immeadiately set upon by a vicious Alien, it digs its claws through your eyes, puncturing your brain and killing you")
                                 print("THE END")
                                 sys.exit()
                                 i=1
                         elif action == ("help"):
-                                print("Command List: go up, press button, help, quit, enter code")
+                                print("Command List: go up, press button, help, quit, enter code, look")
+                        elif action == "look":
+                                print("You fall into a dimmly lit room filled with trash.")
+                                print("You notice a silver door and a paper attached to it.")
+                                print("The paper says (Don't trust KAL, power must remain off!)")
+                                print("You open the door and you see a control panel. On the panel there is a button that say teleport")
 
                         elif action == ("enter code"):
                                 print("The buttons on the panel go from floors 0to9")
@@ -657,22 +688,46 @@ def trashCompactor():
         print("You notice a silver door and a paper attached to it.")
         print("The paper says (Don't trust KAL, power must remain off!)")
         print("You open the door and you see a control panel. On the panel there is a button that say teleport")
-        print("What do you do?")
-        actionTrash = input("What do you do?")
-        if actionTrash == "press button":
-                print("A large glass tube falls over you and a metal rod hangs over you")
-                print("TELEPORTING TO RANDOM LOCATION")
-                rando=random.randrange(0,2)
-                if rando == 1:
-                        rando = rando - 1
-                Navigation[4][rando]()
-                
-        else:
-                print("Well you didn't press the button, hi I'm Kevin, the games developer aka xYukoNx.")
-                print("you typed: "+actionTrash+" which is not an option. Thats obvious. Which means you're an idiot.")
-                print("As punishment for your idiocy I'm sending you to a screen that is going to be your prison.")
-                while True is True:
-                      print(playerName+" is an idiot!")
+        i=0
+        while i == 0:
+                print("What do you do?")
+                actionTrash = input("What do you do?")
+                if actionTrash == "press button":
+                        print("A large glass tube falls over you and a metal rod hangs over you")
+                        print("TELEPORTING TO RANDOM LOCATION")
+                        rando=random.randrange(0,3)
+                        if rando == 1:
+                                rando = rando - 1
+                        Navigation[4][rando]()
+
+                elif actionTrash == "look":
+                        print("You fall into a dimmly lit room filled with trash.")
+                        print("You notice a silver door and a paper attached to it.")
+                        print("The paper says (Don't trust KAL, power must remain off!)")
+                        print("You open the door and you see a control panel. On the panel there is a button that say teleport")
+
+                elif actionTrash == "help":
+                        print("press button, look, map, inventory, help, quit, look")
+
+                elif actionTrash == "quit":
+                        print(playerName+"'s Final Score: "+playerScore)
+                        print("Thank you for playing Atrocitus "+playerName+"!")
+                        print("Goodbye!")
+                        print("THE END!")
+                        input("Press enter to end game...")
+                        sys.exit()
+
+                elif actionTrash == "map":
+                        map()
+                elif actionTrash == "inventory":
+                        inventory()
+                        
+                else:
+                        print("Well you didn't press the button, hi I'm Kevin, the games developer aka xYukoNx.")
+                        print("you typed: "+actionTrash+" which is not an option. Thats obvious. Which means you're an idiot.")
+                        print("As punishment for your idiocy I'm sending you to a screen that is going to be your prison.")
+                        while True is True:
+                              print(playerName+" is an idiot!")
 #6
 def trashChute():
         global playerName
@@ -775,6 +830,27 @@ def secretRoom():
                                 elif action2 == ("teleporter"):
                                         print("You walk over to the teleporter and hit the button")
                                         Navigation[4][2]
+
+                elif action == "look":
+                        print("You've teleported into a dark room with no light")
+                elif action == "quit":
+                        print(playerName+"'s Final Score: "+playerScore)
+                        print("Thank you for playing Atrocitus "+playerName+"!")
+                        print("Goodbye!")
+                        print("THE END!")
+                        input("Press enter to end game...")
+                        sys.exit()
+
+                elif action == "map":
+                        map()
+                elif action == "help":
+                        print("flashlight, look, inventory, map, help, quit")
+
+                elif action == "inventory":
+                        openInventory()
+
+                elif action == "go back" and "Developers Portal Gun" in Inventory:
+                        Navigation[3][2]()
                 else:
                         print("Having no sense of direction and no source of light you wander about until you die.")
                         print(playerName+"'s Final Score: "+playerScore)
@@ -788,7 +864,11 @@ def secretRoom():
         
 #42
 def jungleRoom():
-        pass
+        print("You arrive in a room filled with jungle plants and trees.")
+        print("In the ground you notice large animal tracks")
+        print("To the side there is a large tree with a house built into it and a few other trees, it has thick vines hanging down from it.")
+        print("The vines touch the ground.")
+        
                       
 #This is the Elevator Room aka the Starting area and main hub
 #0
@@ -798,7 +878,7 @@ def elevatorRoom():
         global turnNumber
         x=0
         while x == 0:
-            print("You step out into a barely lit room with doors to your left, right, and directly in front of you. There is a trash chute by the elevator. The elevator stays open behind you.")
+            print("You step out into a barely lit room with doors to your left, right, and directly in front of you. There is a trash chute by the elevator. The elevator stays open behind you. There is a map next to the elevator.")
             input("Press enter to continue...")
             print("what do you do?")
             purpose = input()
@@ -816,12 +896,18 @@ def elevatorRoom():
             elif purpose == ("go trash chute"):
                     print("You walk over to the trash chute and look down it, suddenly you slip and fall in the trash chute.")
                     Navigation[2][2]()
-
+            elif purpose == ("get map") and "map" not in Inventory:
+                    print("You walk over to the map and take it ofthe wall to put it in your bag.")
+                    Inventory.append("map")
             elif purpose == ("map"):
                     Map()
 
             elif purpose == ("inventory"):
                     openInventory()
+
+            elif purpose == ("08558"):
+                    print("Hello YukoN! Here is your portal gun!")
+                    Inventory.append("Developers Portal Gun")
         
 
             elif purpose == ("go right"):
@@ -839,12 +925,15 @@ def elevatorRoom():
                     print("THE END")
                     input("Press enter to end game...")
                     sys.exit()
+            elif purpose == "look":
+                     print("A barely lit room with doors to your left, right, and directly in front of you."
+                           "There is a trash chute by the elevator. The elevator stays open behind you. There is a map next to the elevator.")
 
             elif purpose == ("go back"):
                     Navigation[2][1]()
                     
             elif purpose == ("help"):
-                    print("Command List: go back, go foraward, go left, go right, quit, help")
+                    print("Command List: go back, go foraward, go left, go right, quit, help, get map, inventory, map, look")
                         
             else:
                 print("Invalid Command")
@@ -863,8 +952,11 @@ Navigation = [       [None, mainFrame, None]
 
 #This function displays the map to the players                
 def Map():
-        print(Location)
-        print(Navigation)
+        if "map" in Inventory:
+                print(Location)
+                print(Navigation)
+        else:
+                print("You dont have a map!")
 #This displays the players inventory to the player.
 def openInventory():
         print(Inventory)
