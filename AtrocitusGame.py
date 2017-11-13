@@ -868,6 +868,22 @@ def jungleRoom():
         print("In the ground you notice large animal tracks")
         print("To the side there is a large tree with a house built into it and a few other trees, it has thick vines hanging down from it.")
         print("The vines touch the ground.")
+        print("What do you do?")
+        action = input()
+        if action == "follow tracks":
+                print("You follow the tracks to a teleporter.")
+                print("As you walk over to the teleporter you are ambushed by a giant ape.")
+                print("what do you do?")
+                action2 = input()
+                if action2 == "shoot it" and "M16" in Inventory and "Ammo" in Inventory:
+                        print("You shoot the gorilla and kill it")
+                        print("Upon cutting the gorilla opne you find a taser")
+                        print("You take the taser and go into the teleporter.")
+                        Inventory.append("taser")
+                        print("You press the button and teleport back to the lobby")
+                
+def treeHouse():
+        pass
         
                       
 #This is the Elevator Room aka the Starting area and main hub
