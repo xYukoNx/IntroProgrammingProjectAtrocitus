@@ -13,11 +13,61 @@ visitElevR=0
 visitEscaP=0
 visitElevator=0
 visitVentilation=0
+currentLocation = ""
 Inventory = []
 Flashlight="flashlight"
 lobbymap="map"
 
+class Player:
+        def __init__(self, name, score, currLocale, move_count, inventory):
+                self.name = name
+                self.score = score
+                self.currLocale = currLocale
+                self.move_count = move_count
+                self.inventory = inventory
+                Inventory = []
+        def updateInv(self):
+                self.inventory = Inventory
+        def updateScore(self):
+                global playerScore
+                
+                self.score = playerScore
 
+        def updateName(self):
+                global playerName
+                self.name = playerName
+        def updateLocale(self):
+                global currentLocation
+                self.currLocale = currentLocation
+
+        def Use(self, item):
+                if item in player1.inventory:
+                        print("You used the "+item)
+                        return True
+                else:
+                        print("You do not have that item!")
+                        return False
+        def Take(self, item):
+                pass
+                
+player1 = Player("player", 0, "ElevatorRoom", 0, " ")
+        
+
+class Locale:
+        def __init__(self, LocaleName, LocaleDescription):
+                self.LocaleName = LocaleName
+                self.LocaleDescription = LocaleDescription
+
+MAIN_FRAME = Locale("Main Frame", "You open the door with the key you found and go in. \n Theres a large lever with a label on it that says POWER. \n What do you do?")
+ELEVATOR_ROOM = Locale("Elevator Room", "You step out into a barely lit room with doors to your left, right, and directly in front of you. There is a trash chute by the elevator. The elevator stays open behind you. \n There is a map next to the elevator.")
+VENTILATION = Locale("Ventilation", "")
+EGG_ROOM = Locale("Egg Room", "")
+SECRET_ROOM = Locale("Secret Room", "")
+TRASH_CHUTE = Locale("Trash Chute", "")
+TRASH_COMPACTOR = Locale("Trash Compactor", "")
+JUNGLE_ROOM = Locale("Jungle Room",  "")
+ESCAPE_PODS = Locale("Escape Pods", "You open the door with the key you found in the egg shell room and go inside. \n You walk into an escape pod room that isfully operational, the coordinates are set for a random point in the milky way galaxy.")
+ELEVATOR = Locale("Elevator", "")
 
 #This is a comment
 #Title function plays the title
@@ -38,6 +88,8 @@ def Intro():
                 global playerName
                 global playerScore
                 global turnNumber
+                global player1
+                
                 print("Welcome to the game, if there is no question asked of you simply hit enter to continue")
                 input("Press enter to continue...")
                 playerScore=playerScore+10
@@ -56,8 +108,9 @@ def Intro():
                 print("Score: "+str(playerScore))
                 print("Please enter your name.")
                 playerName = input()
+                player1.updateName()
                 turnNumber=turnNumber+1
-                print("Hello "+playerName+"! The emergency power is starting to fail! Im using the last of my power to send you to the main room, please get to the mainframe from there and turn the power back on. Initiating sleep mode....")
+                print("Hello "+player1.name+"! The emergency power is starting to fail! Im using the last of my power to send you to the main room, please get to the mainframe from there and turn the power back on. Initiating sleep mode....")
                 input("Press enter to continue")
                 playerScore=playerScore+10
                 print("Score: "+str(playerScore))
@@ -79,6 +132,9 @@ def mainFrame():
                     global playerName
                     global turnNumber
                     global visitMainF
+                    global currentLocation
+                    currentLocation = "Main Frame"
+                    player1.updateLocale
                     h = 0
                     visitMainF=visitMainF+1
                     if visitMainF == 1:
@@ -145,7 +201,7 @@ def mainFrame():
                                         print("...")
                                         print(" ")
                                         print("THE END!")
-                                        print(playerName+"'s Final Score: "+str(playerScore))
+                                        print(player1.name+"'s Final Score: "+str(playerScore))
                                         input("Press enter to end game")
                                         sys.exit()
 
@@ -172,6 +228,7 @@ def mainFrame():
                                     print("What do you do?")
                                     actionTwo = input()
                                     turnNumber=turnNumber+1
+                                    
                                     if actionTwo == ("pull the lever") or actionTwo == ("pull it") or actionTwo == ("pull lever"):
                                         print("You pull the lever")
                                         input("Press enter to continue...")
@@ -228,6 +285,10 @@ def escapePods():
         global turnNumber
         global visitEscaP
         visitEscaP=visitEscaP+1
+        global currentLocation
+        currentLocation = "Escape Pods"
+        player1.updateLocale()
+        
         h=0
         #If the player has already visited Escape Pods they will not get points
         if visitEscaP != 1:
@@ -335,6 +396,9 @@ def eggRoom():
         global turnNumber
         global visitEggS
         visitEggS=visitEggS+1
+        global currentLocation
+        currentLocation = "Egg Room"
+        player1.updateLocale()
         
         if visitEggS != 1:
         
@@ -441,6 +505,9 @@ def ventiLation():
         global playerName
         global playerScore
         global turnNumber
+        global currentLocation
+        currentLocation = "Ventilation"
+        player1.updateLocale()
         visitVentilation = visitVentilation+1
         
         if visitVentilation == 1:
@@ -564,6 +631,9 @@ def elevatoR():
         global playerScore
         global turnNumber
         visitEleavator = visitElevator + 1
+        global currentLocation
+        currentLocation = "Elevator"
+        player1.updateLocale()
         if visitElevator == 1:
                 print("You've reentered the elevator")
                 input("Press enter to continue")
@@ -684,6 +754,9 @@ def elevatoR():
 #7
 def trashCompactor():
         global playerName
+        global currentLocation
+        currentLocation = "Trash Compactor"
+        player1.updateLocale()
         print("You fall into a dimmly lit room filled with trash.")
         print("You notice a silver door and a paper attached to it.")
         print("The paper says (Don't trust KAL, power must remain off!)")
@@ -733,6 +806,9 @@ def trashChute():
         global playerName
         global playerScore
         global turnNumber
+        global currentLocation
+        currentLocation = "Trash Chute"
+        player1.updateLocale()
         x=0
         pointCount = 0
         print("You plummet down the shaft in darkness")
@@ -806,7 +882,9 @@ def trashChute():
                 pass
 #40
 def secretRoom():
-        
+        global currentLocation
+        currentLocation = "Secret Room"
+        player1.updateLocale()
         print("You've teleported into a dark room with no light")
         i=0
         while i == 0:
@@ -864,6 +942,9 @@ def secretRoom():
         
 #42
 def jungleRoom():
+        global currentLocation
+        currentLocation = "Jungle Room"
+        player1.updateLocale()
         print("You arrive in a room filled with jungle plants and trees.")
         print("In the ground you notice large animal tracks")
         print("To the side there is a large tree with a house built into it and a few other trees, it has thick vines hanging down from it.")
@@ -880,23 +961,29 @@ def jungleRoom():
                         print("Upon cutting the gorilla opne you find a taser")
                         print("You take the taser and go into the teleporter.")
                         Inventory.append("taser")
+                        player1.updateInventory()
                         print("You press the button and teleport back to the lobby")
                 
 def treeHouse():
+        global currentLocation
+        currentLocation = "Tree House"
+        player1.updateLocale()
         pass
         
                       
 #This is the Elevator Room aka the Starting area and main hub
 #0
 def elevatorRoom():
+        global player1
         global playerName
         global playerScore
         global turnNumber
+        global currentLocation
+        currentLocation = "Elevator Room"
+        player1.updateLocale()
         x=0
         while x == 0:
-            print("You step out into a barely lit room with doors to your left, right, and directly in front of you. There is a trash chute by the elevator. The elevator stays open behind you. There is a map next to the elevator.")
-            input("Press enter to continue...")
-            print("what do you do?")
+            print(ELEVATOR_ROOM.LocaleDescription)
             purpose = input()
             turnNumber=turnNumber+1
             
@@ -915,6 +1002,7 @@ def elevatorRoom():
             elif purpose == ("get map") and "map" not in Inventory:
                     print("You walk over to the map and take it ofthe wall to put it in your bag.")
                     Inventory.append("map")
+                    player1.updateInv()
             elif purpose == ("map"):
                     Map()
 
@@ -968,8 +1056,8 @@ Navigation = [       [None, mainFrame, None]
 
 #This function displays the map to the players                
 def Map():
-        if "map" in Inventory:
-                print(Location)
+        if "map" in player1.inventory:
+                print("You are currently in: "+player1.currLocale)
                 print(Navigation)
         else:
                 print("You dont have a map!")
@@ -982,6 +1070,7 @@ def main():
         global playerScore
         global key
         global Locations
+        global player1
         c=0
         z=0
         
