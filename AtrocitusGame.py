@@ -33,12 +33,61 @@ class Player:
                 
                 self.score = playerScore
 
+        def updateTurn(self):
+                global turnNumber
+                self.move_count = turnNumber
+
         def updateName(self):
                 global playerName
                 self.name = playerName
         def updateLocale(self):
                 global currentLocation
                 self.currLocale = currentLocation
+
+        def showScore(self):
+                print(self.score)
+
+        def quitGame(self):
+                print(player1.name+"'s Final Score: "+str(player1.score))
+                print("Thank you for playing Atrocitus "+player1.name+"!")
+                print("Goodbye!")
+                print("THE END!")
+                input("Press enter to end game...")
+                sys.exit()
+
+        def teleport(self):
+                if "Developers Portal Gun" in player1.inventory:
+                        print("Where would you like to teleport "+player1.name+"?")
+                        i=0
+                        while i == 0:
+                                destination = input()
+                                if destination == "main frame":
+                                        Navigation[0][1]()
+                                elif destination == "elevator room":
+                                        Navigation[1][1]()
+                                elif destination == "escape pods":
+                                        Navigation[1][2]()
+                                elif destination == "egg room":
+                                        Navigation[1][0]()
+                                elif destination == "elevator":
+                                        Navigation[2][1]()
+                                elif destination == "trash chute":
+                                        Navigation[2][2]()
+                                elif destination == "ventilation":
+                                        Navigation[3][1]()
+                                elif destination == "trash compactor":
+                                        Navigation[3][2]()
+                                elif destination == "jungle room":
+                                        Navigation[4][2]()
+                                elif destination == "secret room":
+                                        Navigation[4][0]()
+                                elif destination == "tree house":
+                                        Navigation[5][2]()
+                                else:
+                                        print("Invalid Destination")
+                else:
+                        pass
+        
 
         def Use(self, item):
                 if item in player1.inventory:
@@ -61,13 +110,14 @@ class Locale:
 MAIN_FRAME = Locale("Main Frame", "You open the door with the key you found and go in. \n Theres a large lever with a label on it that says POWER. \n What do you do?")
 ELEVATOR_ROOM = Locale("Elevator Room", "You step out into a barely lit room with doors to your left, right, and directly in front of you. There is a trash chute by the elevator. The elevator stays open behind you. \n There is a map next to the elevator.")
 VENTILATION = Locale("Ventilation", "")
-EGG_ROOM = Locale("Egg Room", "")
+EGG_ROOM = Locale("Egg Room", "You enter the room to your left and step in. \n The room is filled with what would appear to be cracked egg shells. \n There are no doors, as you walk bout the room you feel slime dripping from the ceiling onto your head.")
 SECRET_ROOM = Locale("Secret Room", "")
 TRASH_CHUTE = Locale("Trash Chute", "")
 TRASH_COMPACTOR = Locale("Trash Compactor", "")
 JUNGLE_ROOM = Locale("Jungle Room",  "")
 ESCAPE_PODS = Locale("Escape Pods", "You open the door with the key you found in the egg shell room and go inside. \n You walk into an escape pod room that isfully operational, the coordinates are set for a random point in the milky way galaxy.")
 ELEVATOR = Locale("Elevator", "")
+TREE_HOUSE = Locale("Tree House", "You reach the top and enter the house. \n When you go inside you find a room lit by torches. \n In the middle og the room is an ancient idol sitting atop a pedastool.")
 
 #This is a comment
 #Title function plays the title
@@ -118,6 +168,7 @@ def Intro():
                 input("Press enter to continue")
                 playerScore=playerScore+10
                 print("Score: "+str(playerScore))
+                player1.updateScore()
 
 #The inTtritle function combines the Title and Intro functions.
 def inTritle():
@@ -206,12 +257,7 @@ def mainFrame():
                                         sys.exit()
 
                                     elif actionTwo == ("quit"):
-                                            print(playerName+"'s Final Score: "+playerScore)
-                                            print("Thank you for playing Atrocitus "+playerName+"!")
-                                            print("Goodbye!")
-                                            print("THE END!")
-                                            input("Press enter to end game...")
-                                            sys.exit()
+                                            player1.quitGame()
 
                                     elif actionTwo == ("noting") or actionTwo == ("leave"):
                                             print("You leave through the door that you came in")
@@ -262,12 +308,7 @@ def mainFrame():
                                         sys.exit()
 
                                     elif purpose == ("quit"):
-                                            print(playerName+"'s Final Score: "+playerScore)
-                                            print("Thank you for playing Atrocitus "+playerName+"!")
-                                            print("Goodbye!")
-                                            print("THE END!")
-                                            input("Press enter to end game...")
-                                            sys.exit()
+                                            player1.quitGame()
 
                                     elif actionTwo == ("noting") or actionTwo == ("leave"):
                                             print("You leave through the door that you came in")
@@ -313,17 +354,12 @@ def escapePods():
                                 input("Press enter to continue...")
                                 print(" ")
                                 print("THE END!")
-                                print(playerName+"'s Final Score: "+str(playerScore))
+                                print(player1.name+"'s Final Score: "+str(player1.score))
                                 input("Press enter to end game...")
                                 sys.exit()
                                 
                         elif answerTwo == ("quit"):
-                                    print(playerName+"'s Final Score: "+playerScore)
-                                    print("Thank you for playing Atrocitus "+playerName+"!")
-                                    print("Goodbye!")
-                                    print("THE END!")
-                                    input("Press enter to end game...")
-                                    sys.exit()
+                                    player1.quitGame()
                                     
                         elif answerTwo == ("no") or answerTwo == ("NO"):
                                 print("You leave the Escape Pod room through the door that you entered.")
@@ -334,13 +370,12 @@ def escapePods():
         else:
                 print("You open the door with the key you found in the egg shell room and go inside")
                 input("Press enter to continue...")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
+                playerScore=playerScore+20
+                player1.updateScore()
+                player1.showScore()
                 print(" ")
                 print("You walk into an escape pod room that isfully operational, the coordinates are set for a random point in the milky way galaxy.")
                 input("Press enter to continue...")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
                 print(" ")
                 while h == 0:
                         print("Do you wish to get in an escape pod and activate it?")
@@ -373,12 +408,7 @@ def escapePods():
                                 sys.exit()
                                 
                         elif answerTwo == ("quit"):
-                                    print(playerName+"'s Final Score: "+playerScore)
-                                    print("Thank you for playing Atrocitus "+playerName+"!")
-                                    print("Goodbye!")
-                                    print("THE END!")
-                                    input("Press enter to end game...")
-                                    sys.exit()
+                                    player1.quitGame()
                                     
                         elif answerTwo == ("no") or answerTwo == ("NO"):
                                 print("You leave the Escape Pod room through the door that you entered.")
@@ -403,18 +433,7 @@ def eggRoom():
         if visitEggS != 1:
         
                 i=0        
-                print("you enter the room to your left and step in.")
-                input("Press enter to continue...")
-                
-                print("Score: "+str(playerScore))
-                print("The room is filled with what would appear to be cracked egg shells")
-                input("Press enter to continue...")
-                
-                print("Score: "+str(playerScore))
-                print("There are no doors, as you walk bout the room you feel slime dripping from the veiling onto your head.")
-                input("Press enter to continue...")
-                
-                print("Score: "+str(playerScore))
+                print(EGG_ROOM.LocaleDescription)
                 while i == 0:
                         print("What do you do?")
                         actionOne = input()
@@ -438,12 +457,7 @@ def eggRoom():
                                 sys.exit()
 
                         elif purpose == ("quit"):
-                            print(playerName+"'s Final Score: "+playerScore)
-                            print("Thank you for playing Atrocitus "+playerName+"!")
-                            print("Goodbye!")
-                            print("THE END!")
-                            input("Press enter to end game...")
-                            sys.exit()
+                            player1.quitGame()
 
                         else:
                                         print("Invalid Command")
@@ -451,18 +465,11 @@ def eggRoom():
         else:
                 i=0
                         
-                print("you enter the room to your left and step in.")
-                input("Press enter to continue...")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
-                print("The room is filled with what would appear to be cracked egg shells")
-                input("Press enter to continue...")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
-                print("There are no doors, as you walk bout the room you feel slime dripping from the veiling onto your head.")
-                input("Press enter to continue...")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
+                
+                playerScore=playerScore+50
+                
+                
+                print(EGG_ROOM.LocaleDescription)                
                 while i == 0:
                         print("What do you do?")
                         actionOne = input()
@@ -472,6 +479,7 @@ def eggRoom():
                                 key = 1
                                 Inventory.append("key")
                                 Inventory.append("black note")
+                                player1.updateInv()
                                 input("Press enter to continue...")
                                 playerScore=playerScore+10
                                 print("Score: "+str(playerScore))
@@ -481,7 +489,6 @@ def eggRoom():
                         elif actionOne == ("look up"):
                                 print("A hideous creature with razer sharp claws pounces down on you and slashes off your limbs and eats your stomache as you lay alive and horrified, it leaves you and you die an extremely long and painful death.")
                                 input("Press enter to continue...")
-                                playerScore=playerScore+10
                                 print("Score: "+str(playerScore))
                                 print("The End!")
                                 print(playerName+"'s Final Score: "+str(playerScore))
@@ -489,12 +496,7 @@ def eggRoom():
                                 sys.exit()
 
                         elif actionOne == ("quit"):
-                            print(playerName+"'s Final Score: "+playerScore)
-                            print("Thank you for playing Atrocitus "+playerName+"!")
-                            print("Goodbye!")
-                            print("THE END!")
-                            input("Press enter to end game...")
-                            sys.exit()
+                            player1.quitGame()
 
                         else:
                                         print("Invalid Command")
@@ -548,12 +550,7 @@ def ventiLation():
                         elif action == ("help"):
                                 print("Command List: stay, go lobby, help, quit")
                         elif action == ("quit"):
-                                print(playerName+"'s Final Score: "+playerScore)
-                                print("Thank you for playing Atrocitus "+playerName+"!")
-                                print("Goodbye!")
-                                print("THE END!")
-                                input("Press enter to end game...")
-                                sys.exit()
+                                player1.quitGame()
                         elif action == "map":
                                 Map()
 
@@ -606,12 +603,7 @@ def ventiLation():
                         elif action == ("help"):
                                 print("Command List: stay, go lobby, help, quit, look")
                         elif action == ("quit"):
-                                print(playerName+"'s Final Score: "+playerScore)
-                                print("Thank you for playing Atrocitus "+playerName+"!")
-                                print("Goodbye!")
-                                print("THE END!")
-                                input("Press enter to end game...")
-                                sys.exit()
+                               player1.quitGame()
                         elif action == "look":
                                 print("You find a note that has the following sequence of chemicals and spaces written on it:")
                                 print("As you move through the shaft you hear high pitched scream coming from behind you as well as a rumbling in the vents.")
@@ -681,16 +673,12 @@ def elevatoR():
                                         print("You take the batteries and flashlight and put them in your bag.")
                                         Inventory.append("flashlight")
                                         Inventory.append("batteries")
+                                        player1.updateInv()
                                 else:
                                         print("Nothing Happened")
                                 
                         elif action == ("quit"):
-                                print(playerName+"'s Final Score: "+playerScore)
-                                print("Thank you for playing Atrocitus "+playerName+"!")
-                                print("Goodbye!")
-                                print("THE END!")
-                                input("Press enter to end game...")
-                                sys.exit()
+                                player1.quitGame()
                         else:
                                 print("Invalid Command")
         else:
@@ -739,14 +727,10 @@ def elevatoR():
                                         print("You take the batteries and flashlight and put them in your bag.")
                                         Inventory.append("flashlight")
                                         Inventory.append("batteries")
+                                        player1.updateInv()
                         
                         elif action == ("quit"):
-                                print(playerName+"'s Final Score: "+playerScore)
-                                print("Thank you for playing Atrocitus "+playerName+"!")
-                                print("Goodbye!")
-                                print("THE END!")
-                                input("Press enter to end game...")
-                                sys.exit()
+                                player1.quitGame()
                         else:
                                 print("Invalid Command")
 
@@ -783,12 +767,7 @@ def trashCompactor():
                         print("press button, look, map, inventory, help, quit, look")
 
                 elif actionTrash == "quit":
-                        print(playerName+"'s Final Score: "+playerScore)
-                        print("Thank you for playing Atrocitus "+playerName+"!")
-                        print("Goodbye!")
-                        print("THE END!")
-                        input("Press enter to end game...")
-                        sys.exit()
+                        player1.quitGame()
 
                 elif actionTrash == "map":
                         map()
@@ -821,7 +800,7 @@ def trashChute():
                         pointCount=pointCount
                         break
                 elif actionTrash == "quit":
-                        sys.exit()
+                        player1.quitGame()
                 else:
                         print("invalid command try again")
         actionTrash = input("Lean left or right: ")
@@ -833,7 +812,7 @@ def trashChute():
                         pointCount=pointCount
                         break
                 elif actionTrash == "quit":
-                        sys.exit()
+                        player1.quitGame()
                 else:
                         print("invalid command try again")
         actionTrash = input("Lean left or right: ")
@@ -845,7 +824,7 @@ def trashChute():
                         pointCount=pointCount
                         break
                 elif actionTrash == "quit":
-                        sys.exit()
+                        player1.quitGame()
                 else:
                         print("invalid command try again")
         actionTrash = input("Lean left or right: ")
@@ -857,7 +836,7 @@ def trashChute():
                         pointCount=pointCount
                         break
                 elif actionTrash == "quit":
-                        sys.exit()
+                        player1.quitGame()
                 else:
                         print("invalid command try again")
         actionTrash = input("Lean left or right: ")
@@ -869,13 +848,14 @@ def trashChute():
                         pointCount=pointCount
                         break
                 elif actionTrash == "quit":
-                        sys.exit()
+                        player1.quitGame()
                 else:
                         print("invalid command try again")
         if pointCount >= 4:
                 Navigation[3][2]()
         elif pointCount < 4:
                 print("You hit a sharp part of the chute and get impaled upon it, you bleed out and die.")
+                print(player1.name+"'s score: "+player1.score)
                 print("THE END!")
                 sys.exit()
         else:
@@ -903,6 +883,7 @@ def secretRoom():
                                                 print("You take the gun and its ammo and put the ammo in your bag whilst swinging the gun around your shoulder using the strap.")
                                                 Inventory.append("M16")
                                                 Inventory.append("Ammo")
+                                                player1.updateInv()
                                         else:
                                                 print("That password is invalid")
                                 elif action2 == ("teleporter"):
@@ -912,12 +893,7 @@ def secretRoom():
                 elif action == "look":
                         print("You've teleported into a dark room with no light")
                 elif action == "quit":
-                        print(playerName+"'s Final Score: "+playerScore)
-                        print("Thank you for playing Atrocitus "+playerName+"!")
-                        print("Goodbye!")
-                        print("THE END!")
-                        input("Press enter to end game...")
-                        sys.exit()
+                        player1.quitGame()
 
                 elif action == "map":
                         map()
@@ -927,15 +903,11 @@ def secretRoom():
                 elif action == "inventory":
                         openInventory()
 
-                elif action == "go back" and "Developers Portal Gun" in Inventory:
+                elif action == "go back" and "Developers Portal Gun" in player1.inventory:
                         Navigation[3][2]()
                 else:
                         print("Having no sense of direction and no source of light you wander about until you die.")
-                        print(playerName+"'s Final Score: "+playerScore)
-                        print("Goodbye!")
-                        print("THE END!")
-                        input("Press enter to end game...")
-                        sys.exit()
+                        player1.quitGame()
                         
                 
         
@@ -956,19 +928,37 @@ def jungleRoom():
                 print("As you walk over to the teleporter you are ambushed by a giant ape.")
                 print("what do you do?")
                 action2 = input()
-                if action2 == "shoot it" and "M16" in Inventory and "Ammo" in Inventory:
+                if action2 == "shoot it" and "M16" in player1.inventory and "Ammo" in player1.inventory:
+                        print(player1.Use("M16"))
                         print("You shoot the gorilla and kill it")
-                        print("Upon cutting the gorilla opne you find a taser")
+                        print("Upon cutting the gorilla open you find a taser")
                         print("You take the taser and go into the teleporter.")
                         Inventory.append("taser")
                         player1.updateInventory()
                         print("You press the button and teleport back to the lobby")
+                elif action2 == "help":
+                        print("Command List: shoot it, stand still, help, quit")
+                elif action2 == "quit":
+                        player1.quitGame()
+        elif action == "quit":
+                player1.quitGame()
+        elif action == "climb vines":
+                print("You start climbing up the vines towards the tree house.")
+                Navigation[5][2]()
+        elif action == "help":
+                print("Commands: follow tracks, climb vines, quit, help.")
+        elif action == "teleport" and "Developers Portal Gun" in player1.inventory:
+                player1.teleport()
+                
+                
+                
                 
 def treeHouse():
+        
         global currentLocation
         currentLocation = "Tree House"
         player1.updateLocale()
-        pass
+        print(TREE_HOUSE.LocaleDescription)
         
                       
 #This is the Elevator Room aka the Starting area and main hub
@@ -1012,6 +1002,10 @@ def elevatorRoom():
             elif purpose == ("08558"):
                     print("Hello YukoN! Here is your portal gun!")
                     Inventory.append("Developers Portal Gun")
+                    player1.updateInv()
+
+            elif purpose == ("teleport"):
+                    player1.teleport()
         
 
             elif purpose == ("go right"):
@@ -1023,12 +1017,7 @@ def elevatorRoom():
                     Navigation[1][2]()
 
             elif purpose == ("quit"):
-                    print(playerName+"'s Final Score: "+playerScore)
-                    print("Thank you for playing Atrocitus "+nameFirst+"!")
-                    print("Goodbye!")
-                    print("THE END")
-                    input("Press enter to end game...")
-                    sys.exit()
+                    player1.quitGame()
             elif purpose == "look":
                      print("A barely lit room with doors to your left, right, and directly in front of you."
                            "There is a trash chute by the elevator. The elevator stays open behind you. There is a map next to the elevator.")
@@ -1051,8 +1040,10 @@ Navigation = [       [None, mainFrame, None]
                     ,[eggRoom, elevatorRoom, escapePods]
                     ,[None, elevatoR, trashChute]
                     ,[None, ventiLation, trashCompactor]
-                    ,[secretRoom, None, jungleRoom]]
-#elevatorRoom = 11. eggRoom = 10. escapePods = 12. mainFrame = 01. elevatoR = 21. trashChute = 22. ventiLation = 31. trashCompactor = 32.
+                    ,[secretRoom, None, jungleRoom]
+                    ,[None, None, treeHouse]]
+#elevatorRoom = 11. eggRoom = 10. escapePods = 12. mainFrame = 01. elevatoR = 21. trashChute = 22. ventiLation = 31. trashCompactor = 32. secretRoom = 40. jungleRoom = 42.
+#treeHouse = 52
 
 #This function displays the map to the players                
 def Map():
