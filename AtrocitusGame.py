@@ -26,6 +26,7 @@ class Player:
                 self.move_count = move_count
                 self.inventory = inventory
                 Inventory = []
+                self.inventory = Inventory
         def updateInv(self):
                 self.inventory = Inventory
         def updateScore(self):
@@ -45,7 +46,7 @@ class Player:
                 self.currLocale = currentLocation
 
         def showScore(self):
-                print(self.score)
+                print("Score: "+str(self.score))
 
         def quitGame(self):
                 print(player1.name+"'s Final Score: "+str(player1.score))
@@ -56,8 +57,8 @@ class Player:
                 sys.exit()
 
         def teleport(self):
-                if "Developers Portal Gun" in player1.inventory:
-                        print("Where would you like to teleport "+player1.name+"?")
+                if "Developers Portal Gun" in self.inventory:
+                        print("Where would you like to teleport "+self.name+"?")
                         i=0
                         while i == 0:
                                 destination = input()
@@ -91,15 +92,17 @@ class Player:
 
         def Use(self, item):
                 if item in player1.inventory:
-                        print("You used the "+item)
+                        print("You use the "+item)
                         return True
                 else:
                         print("You do not have that item!")
                         return False
         def Take(self, item):
-                pass
+                Inventory.append(item)
+                player1.updateInv()
+                print("You take the "+item+".")
                 
-player1 = Player("player", 0, "ElevatorRoom", 0, " ")
+player1 = Player("player", 0, "ElevatorRoom", 0, "")
         
 
 class Locale:
@@ -109,15 +112,16 @@ class Locale:
 
 MAIN_FRAME = Locale("Main Frame", "You open the door with the key you found and go in. \n Theres a large lever with a label on it that says POWER. \n What do you do?")
 ELEVATOR_ROOM = Locale("Elevator Room", "You step out into a barely lit room with doors to your left, right, and directly in front of you. There is a trash chute by the elevator. The elevator stays open behind you. \n There is a map next to the elevator.")
-VENTILATION = Locale("Ventilation", "")
+VENTILATION = Locale("Ventilation", "You find a note that has the following sequence of chemicals and spaces written on it: \n Potassium, Aluminium, , Iodine, Sulfur, , Barium, Darmstadtium. \n As you move through the shaft you hear high pitched scream coming from behind you as well as a rumbling in the vents. \n You make it to a part of the vent labeled Lobby.")
 EGG_ROOM = Locale("Egg Room", "You enter the room to your left and step in. \n The room is filled with what would appear to be cracked egg shells. \n There are no doors, as you walk bout the room you feel slime dripping from the ceiling onto your head.")
-SECRET_ROOM = Locale("Secret Room", "")
-TRASH_CHUTE = Locale("Trash Chute", "")
-TRASH_COMPACTOR = Locale("Trash Compactor", "")
-JUNGLE_ROOM = Locale("Jungle Room",  "")
+SECRET_ROOM = Locale("Secret Room", "You've teleported into a dark room with no light")
+TRASH_CHUTE = Locale("Trash Chute", "You plummet down the shaft in darkness")
+TRASH_COMPACTOR = Locale("Trash Compactor", "You fall into a dimmly lit room filled with trash. \n You notice a silver door and a paper attached to it. \n The paper says (Don't trust KAL, power must remain off!) \n You open the door and you see a control panel. On the panel there is a button that says teleport.")
+JUNGLE_ROOM = Locale("Jungle Room",  "You arrive in a room filled with jungle plants and trees. \n In the ground you notice large animal tracks. \n To the side there is a large tree with a house built into it and a few other trees, it has thick vines hanging down from it. \n The vines touch the ground.")
 ESCAPE_PODS = Locale("Escape Pods", "You open the door with the key you found in the egg shell room and go inside. \n You walk into an escape pod room that isfully operational, the coordinates are set for a random point in the milky way galaxy.")
-ELEVATOR = Locale("Elevator", "")
+ELEVATOR = Locale("Elevator", "You've reentered the elevator. \n The elevator closes shut and locks behind you. \n  Outside the door you hear something violently clawing at the door. \n The Buttons on the elevator are all unlit except for the open door button and the servicce button, Above you there is a hatch that allows maitnance to access the shaft. \n The Buttons on the elevator are all unlit except for the open door button and the servicce button, Above you there is a hatch that allows maitnance to access the shaft.")
 TREE_HOUSE = Locale("Tree House", "You reach the top and enter the house. \n When you go inside you find a room lit by torches. \n In the middle og the room is an ancient idol sitting atop a pedastool.")
+COLLISEUM = Locale("Colliseum", "You arrive in a large Roman-esque Colliseum. \n You step out ont the empty sand field as a gate falls down behind you. \n Suddenly a gate on the other side of the Colliseum opens and a Gladiator steps out.")
 
 #This is a comment
 #Title function plays the title
@@ -184,14 +188,12 @@ def mainFrame():
                     global turnNumber
                     global visitMainF
                     global currentLocation
-                    currentLocation = "Main Frame"
+                    currentLocation = MAIN_FRAME.LocaleName
                     player1.updateLocale
                     h = 0
                     visitMainF=visitMainF+1
                     if visitMainF == 1:
-                            print("You open the door with the key you found and go in.")
-                            input("Press enter to continue...")
-                            print("Theres a large lever with a label on it that says POWER")
+                            print(MAIN_FRAME.LocaleDescription)
                             while h == 0:
                                     input("Press enter to continue...")
                                     print("What do you do?")
@@ -200,59 +202,39 @@ def mainFrame():
                                     if actionTwo == ("pull the lever") or actionTwo == ("pull it") or actionTwo == ("pull lever"):
                                         print("You pull the lever")
                                         input("Press enter to continue...")
-                                        playerScore=playerScore+10
-                                        print("Score: "+str(playerScore))
+                                        playerScore=playerScore+90
+                                        player1.showScore()
                                         print(" ")
                                         print("POWER RESTORED! KAL-1337 REBOOTING.........REBOOT COMPLETE.")
                                         input("Press enter to continue...")
-                                        playerScore=playerScore+10
-                                        print("Score: "+str(playerScore))
                                         print(" ")
-                                        print("Thank you for restoring the power "+ playerName +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments.")
-                                        input("Press enter to continue...")
-                                        playerScore=playerScore+10
-                                        print("Score: "+str(playerScore))
-                                        print(" ")
+                                        print("Thank you for restoring the power "+ player1.name +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments.")
                                         print("Luckily you know that what Im doing is for the best... Unfortunately my experiments have proved fatal for my animal test subjects and all of them have died.")
-                                        input("Press enter to continue...")
-                                        playerScore=playerScore+10
-                                        print("Score: "+str(playerScore))
+                                        
                                         print(" ")
                                         print("My research simply cannot go unfinished. So I regretfully most inform you that youuuuuuuu wiiiiiill, sorry just somesomesomething tttthhhaaaaat happenes to me on ocassssssssiion")
-                                        input("Press enter to continue...")
-                                        playerScore=playerScore+10
-                                        print("Score: "+str(playerScore))
                                         print(" ")
                                         print("As I was saying, I must regretfully inform you that you will not be leaving this ship as you are now the only test subject I have left")
-                                        input("Press enter to continue...")
-                                        playerScore=playerScore+10
-                                        print("Score: "+str(playerScore))
                                         print(" ")
                                         print("Testing will begin immeadiately")
-                                        input("Press enter to continue...")
-                                        playerScore=playerScore+10
-                                        print("Score: "+str(playerScore))
+                                        
                                         print(" ")
                                         print(" ")
                                         print("Suddenly you find yourself bound to a table on your back and looking into a red eye with an attached set of power tools")
-                                        input("Press enter to continue...")
-                                        playerScore=playerScore+10
-                                        print("Score: "+str(playerScore))
+                                        
                                         print(" ")
                                         print(" ")
                                         print("BOOTING UP EXPERIMENT52.EXE....")
                                         print(" ")
                                         print("The tools turn on and start violently rotating and humming as they slowly descend towards your face")
-                                        input("Press enter to continue...")
-                                        playerScore=playerScore+10
-                                        print("Score: "+str(playerScore))
+                                        
                                         print(" ")
                                         print(" ")
-                                        print("Dont worry "+ playerName +"! Youll only feel a small pinch.")
+                                        print("Dont worry "+ player1.name +"! Youll only feel a small pinch.")
                                         print("...")
                                         print(" ")
                                         print("THE END!")
-                                        print(player1.name+"'s Final Score: "+str(playerScore))
+                                        print(player1.name+"'s Final Score: "+str(player1.score))
                                         input("Press enter to end game")
                                         sys.exit()
 
@@ -267,20 +249,18 @@ def mainFrame():
                                         print("Invalid Command")
                         
                             else:
-                                    print("You open the door with the key you found and go in.")
-                                    input("Press enter to continue...")
-                                    print("Theres a large lever with a label on it that says POWER")
-                                    input("Press enter to continue...")
+                                    print(MAIN_FRAME.LocaleDescription)
                                     print("What do you do?")
                                     actionTwo = input()
                                     turnNumber=turnNumber+1
+                                    player1.updateTurn()
                                     
                                     if actionTwo == ("pull the lever") or actionTwo == ("pull it") or actionTwo == ("pull lever"):
                                         print("You pull the lever")
                                         input("Press enter to continue...")
                                         print("POWER RESTORED! KAL-1337 REBOOTING.........REBOOT COMPLETE.")
                                         input("Press enter to continue...")
-                                        print("Thank you for restoring the power "+ playerName +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments.")
+                                        print("Thank you for restoring the power "+ player1.name +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments.")
                                         input("Press enter to continue...")
                                         print("Luckily you know that what Im doing is for the best... Unfortunately my experiments have proved fatal for my animal test subjects and all of them have died.")
                                         input("Press enter to continue...")
@@ -299,11 +279,11 @@ def mainFrame():
                                         print("The tools turn on and start violently rotating and humming as they slowly descend towards your face")
                                         input("Press enter to continue...")
                                         print(" ")
-                                        print("Dont worry "+ playerName +"! Youll only feel a small pinch.")
+                                        print("Dont worry "+ player1.name +"! Youll only feel a small pinch.")
                                         print("...")
                                         print(" ")
                                         print("THE END!")
-                                        print(playerName+"'s Final Score: "+str(playerScore))
+                                        print(player1.name+"'s Final Score: "+str(player1.score))
                                         input("Press enter to end game")
                                         sys.exit()
 
@@ -333,10 +313,7 @@ def escapePods():
         h=0
         #If the player has already visited Escape Pods they will not get points
         if visitEscaP != 1:
-                print("You open the door with the key you found in the egg shell room and go inside")
-                input("Press enter to continue...")
-                print("You walk into an escape pod room that isfully operational, the coordinates are set for a random point in the milky way galaxy.")
-                input("Press enter to continue...")
+                print(ESCAPE_PODS.LocaleDescription)
                 while h == 0:
                         print("Do you wish to get in an escape pod and activate it?")
                         answerTwo = input()
@@ -368,15 +345,11 @@ def escapePods():
                         else:
                                 print("Invalid Command")
         else:
-                print("You open the door with the key you found in the egg shell room and go inside")
-                input("Press enter to continue...")
+                print(ESCAPE_PODS.LocaleDescription)
                 playerScore=playerScore+20
                 player1.updateScore()
                 player1.showScore()
-                print(" ")
-                print("You walk into an escape pod room that isfully operational, the coordinates are set for a random point in the milky way galaxy.")
-                input("Press enter to continue...")
-                print(" ")
+                
                 while h == 0:
                         print("Do you wish to get in an escape pod and activate it?")
                         answerTwo = input()
@@ -427,7 +400,7 @@ def eggRoom():
         global visitEggS
         visitEggS=visitEggS+1
         global currentLocation
-        currentLocation = "Egg Room"
+        currentLocation = EGG_ROOM.LocaleName
         player1.updateLocale()
         
         if visitEggS != 1:
@@ -508,28 +481,25 @@ def ventiLation():
         global playerScore
         global turnNumber
         global currentLocation
-        currentLocation = "Ventilation"
+        currentLocation = VENTILATION.LocaleName
         player1.updateLocale()
         visitVentilation = visitVentilation+1
         
         if visitVentilation == 1:
-                print("You find a note that has the following sequence of chemicals and spaces written on it:")
-                input("Press enter to continue")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
-                print("Potassium, Aluminium, , Iodine, Sulfur, , Barium, Darmstadtium")
+                print(VENTILATION.LocaleDescription)
+                playerScore=playerScore+40
+                player1.updateScore()
+                player1.showScore()
+                
                 Inventory.append("chem note")
-                input("Press enter to continue")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
-                print("As you move through the shaft you hear high pitched scream coming from behind you as well as a rumbling in the vents.")
-                input("Press enter to continue")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
-                print("You make it to a part of the vent labeled Lobby")
-                input("Press enter to continue")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
+                
+                
+                
+                
+                
+                
+                
+                
                 i=0
                 while i == 0:
                         print("What do you do?")
@@ -538,11 +508,14 @@ def ventiLation():
                                 print("You slide down the vent shaft and fall through into the room you were earlier")
                                 i=1
                                 Locations[0]()
+                        elif action == "teleport":
+                                player1.teleport()
                         elif action == ("stay"):
                                 print("you stay in the vents and waitfor the screams and rumbling as they grow louder and louder")
                                 input("Press enter to continue")
                                 playerScore=playerScore+10
-                                print("Score: "+str(playerScore))
+                                player1.updateScore()
+                                player1.showScore()
                                 print("Eventually a massive creature comes speeding towards you, you try to slide down the vent shaft but it grabs your leg and pulls you back up.")
                                 print("It starts eating the meat off your bones well you're still alive.")
                                 print("THE END!")
@@ -567,22 +540,8 @@ def ventiLation():
                                 
 
         else:
-                print("You find a note that has the following sequence of chemicals and spaces written on it:")
-                input("Press enter to continue")
+                print(VENTILATION.LocaleDescription)
                 
-                print("Score: "+str(playerScore))
-                print("Potassium, Aluminium, , Iodine, Sulfur, , Barium, Darmstadtium")
-                input("Press enter to continue")
-                
-                print("Score: "+str(playerScore))
-                print("As you move through the shaft you hear high pitched scream coming from behind you as well as a rumbling in the vents.")
-                input("Press enter to continue")
-                
-                print("Score: "+str(playerScore))
-                print("You make it to a part of the vent labeled Lobby")
-                input("Press enter to continue")
-                
-                print("Score: "+str(playerScore))
                 i=0
                 while i == 0:
                         print("What do you do?")
@@ -591,6 +550,8 @@ def ventiLation():
                                 print("You slide down the vent shaft and fall through into the room you were earlier")
                                 i=1
                                 Locations[0]()
+                        elif action == "teleport":
+                                player1.teleport()
                         elif action == ("stay"):
                                 print("you stay in the vents and waitfor the screams and rumbling as they grow louder and louder")
                                 input("Press enter to continue")
@@ -624,25 +585,14 @@ def elevatoR():
         global turnNumber
         visitEleavator = visitElevator + 1
         global currentLocation
-        currentLocation = "Elevator"
+        currentLocation = ELEVATOR.LocaleName
         player1.updateLocale()
         if visitElevator == 1:
-                print("You've reentered the elevator")
-                input("Press enter to continue")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
-                print("The elevator closes shut and locks behind you")
-                input("Press enter to continue")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
-                print("Outside the door you hear something violently clawing at the door")
-                input("Press enter to continue")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
-                print("The Buttons on the elevator are all unlit except for the open door button and the servicce button, Above you there is a hatch that allows maitnance to access the shaft")
-                input("Press enter to continue...")
-                playerScore=playerScore+10
-                print("Score: "+str(playerScore))
+                print(ELEVATOR.LocaleDescription)
+                playerScore=playerScore+40
+                player1.updateScore()
+                player1.showScore()
+                
                 i=0
                 while i==0:
                         print("What do you do?")
@@ -676,28 +626,15 @@ def elevatoR():
                                         player1.updateInv()
                                 else:
                                         print("Nothing Happened")
+                        elif action == ("teleport"):
+                                player1.teleport()
                                 
                         elif action == ("quit"):
                                 player1.quitGame()
                         else:
                                 print("Invalid Command")
         else:
-                print("You've reentered the elevator")
-                input("Press enter to continue")
-                
-                print("Score: "+str(playerScore))
-                print("The elevator closes shut and locks behind you")
-                input("Press enter to continue")
-                
-                print("Score: "+str(playerScore))
-                print("Outside the door you hear something violently clawing at the door")
-                input("Press enter to continue")
-                
-                print("Score: "+str(playerScore))
-                print("The Buttons on the elevator are all removed except for the open door button and the servicce button, Above you there is a hatch that allows maitnance to access the shaft")
-                input("Press enter to continue...")
-                
-                print("Score: "+str(playerScore))
+                print(ELEVATOR.LocaleDescription)
                 i=0
                 while i==0:
                         print("What do you do?")
@@ -728,6 +665,8 @@ def elevatoR():
                                         Inventory.append("flashlight")
                                         Inventory.append("batteries")
                                         player1.updateInv()
+                        elif action == "teleport":
+                                player1.teleport()
                         
                         elif action == ("quit"):
                                 player1.quitGame()
@@ -739,12 +678,9 @@ def elevatoR():
 def trashCompactor():
         global playerName
         global currentLocation
-        currentLocation = "Trash Compactor"
+        currentLocation = TRASH_COMPACTOR.LocaleName
         player1.updateLocale()
-        print("You fall into a dimmly lit room filled with trash.")
-        print("You notice a silver door and a paper attached to it.")
-        print("The paper says (Don't trust KAL, power must remain off!)")
-        print("You open the door and you see a control panel. On the panel there is a button that say teleport")
+        print(TRASH_COMPACTOR.LocaleDescription)
         i=0
         while i == 0:
                 print("What do you do?")
@@ -763,6 +699,9 @@ def trashCompactor():
                         print("The paper says (Don't trust KAL, power must remain off!)")
                         print("You open the door and you see a control panel. On the panel there is a button that say teleport")
 
+                elif actionTrash == "teleport":
+                        player1.teleport()
+
                 elif actionTrash == "help":
                         print("press button, look, map, inventory, help, quit, look")
 
@@ -779,18 +718,18 @@ def trashCompactor():
                         print("you typed: "+actionTrash+" which is not an option. Thats obvious. Which means you're an idiot.")
                         print("As punishment for your idiocy I'm sending you to a screen that is going to be your prison.")
                         while True is True:
-                              print(playerName+" is an idiot!")
+                              print(player1.name+" is an idiot!")
 #6
 def trashChute():
         global playerName
         global playerScore
         global turnNumber
         global currentLocation
-        currentLocation = "Trash Chute"
+        currentLocation = TRASH_CHUTE.LocaleName
         player1.updateLocale()
         x=0
         pointCount = 0
-        print("You plummet down the shaft in darkness")
+        print(TRASH_CHUTE.LocaleDescription)
         actionTrash = input("Lean left or right: ")
         while x == 0:
                 if actionTrash == "right":
@@ -799,6 +738,8 @@ def trashChute():
                 elif actionTrash == "left":
                         pointCount=pointCount
                         break
+                elif actionTrash == "teleport":
+                        player1.teleport()
                 elif actionTrash == "quit":
                         player1.quitGame()
                 else:
@@ -863,9 +804,9 @@ def trashChute():
 #40
 def secretRoom():
         global currentLocation
-        currentLocation = "Secret Room"
+        currentLocation = SECRET_ROOM.LocaleName
         player1.updateLocale()
-        print("You've teleported into a dark room with no light")
+        print(SECRET_ROOM.LocaleName)
         i=0
         while i == 0:
                 print("What do you do?")
@@ -889,6 +830,9 @@ def secretRoom():
                                 elif action2 == ("teleporter"):
                                         print("You walk over to the teleporter and hit the button")
                                         Navigation[4][2]
+
+                elif action == "teleport":
+                        player1.teleport()
 
                 elif action == "look":
                         print("You've teleported into a dark room with no light")
@@ -915,13 +859,9 @@ def secretRoom():
 #42
 def jungleRoom():
         global currentLocation
-        currentLocation = "Jungle Room"
+        currentLocation = JUNGLE_ROOM.LocaleName
         player1.updateLocale()
-        print("You arrive in a room filled with jungle plants and trees.")
-        print("In the ground you notice large animal tracks")
-        print("To the side there is a large tree with a house built into it and a few other trees, it has thick vines hanging down from it.")
-        print("The vines touch the ground.")
-        print("What do you do?")
+        print(JUNGLE_ROOM.LocaleDescription)
         action = input()
         if action == "follow tracks":
                 print("You follow the tracks to a teleporter.")
@@ -942,6 +882,8 @@ def jungleRoom():
                         player1.quitGame()
         elif action == "quit":
                 player1.quitGame()
+        elif action == "teleport":
+                player1.teleport()
         elif action == "climb vines":
                 print("You start climbing up the vines towards the tree house.")
                 Navigation[5][2]()
@@ -956,9 +898,58 @@ def jungleRoom():
 def treeHouse():
         
         global currentLocation
-        currentLocation = "Tree House"
+        currentLocation = TREE_HOUSE.LocaleName
         player1.updateLocale()
         print(TREE_HOUSE.LocaleDescription)
+        i=0
+        print("What do you do?")
+        while i == 0:
+                action = input()
+                if action == "take idol":
+                        player1.Take(idol)
+                        print("Suddenly a loud click is made and a hidden compartment swings open to reveal a sword")
+                        print("What do you do?")
+                        while i == 0:
+                                action = input()
+                                if action == "take sword":
+                                        player1.Take("sword")
+                                        print("A hidden teleporter comes out and teleports you!")
+                                        Navigation[4][1]()
+                                elif action == "climb down":
+                                        print("You climb down the vines back into the Jungle Room.")
+                                        Navigation[4][2]()
+                                elif action == "help":
+                                        print("Command List: take sword, climb down, help, quit")
+                                elif action == "quit":
+                                        player1.quitGame()
+                elif action == "climb down":
+                        print("You climb down the vines back into the Jungle Room.")
+                
+
+def colliSeum():
+
+        global currentLocation
+        currentLocation = COLLISEUM.LocaleName
+        player1.updateLocale()
+        print(COLLISEUM.LocaleDescription)
+        i=0
+        print("What do you do?")
+        while i==0:
+                action = input()
+                if action == "fight" or action == "use sword":
+                        player1.Use("sword")
+                        print("You charge the Gladiator with your sword and manage to kill him. \n He still has his armor on. \n A teleporter appears in the center of the arena. \n What do you do?")
+                        while i == 0:
+                                if action == "take armor":
+                                        player1.Take("armor")
+                                elif action == "teleporter":
+                                        print("You walk over to the teleporter and teleport back to the Jungle Room")
+                                elif action == "help":
+                                        print("Command List: teleporter, take armor, quit, help.")
+                                elif action == "quit":
+                                        player1.quitGame()
+                
+        
         
                       
 #This is the Elevator Room aka the Starting area and main hub
@@ -1040,7 +1031,7 @@ Navigation = [       [None, mainFrame, None]
                     ,[eggRoom, elevatorRoom, escapePods]
                     ,[None, elevatoR, trashChute]
                     ,[None, ventiLation, trashCompactor]
-                    ,[secretRoom, None, jungleRoom]
+                    ,[secretRoom, colliSeum, jungleRoom]
                     ,[None, None, treeHouse]]
 #elevatorRoom = 11. eggRoom = 10. escapePods = 12. mainFrame = 01. elevatoR = 21. trashChute = 22. ventiLation = 31. trashCompactor = 32. secretRoom = 40. jungleRoom = 42.
 #treeHouse = 52
