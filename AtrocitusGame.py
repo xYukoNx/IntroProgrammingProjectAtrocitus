@@ -3,6 +3,7 @@
 #This is another comment for a commit
 import sys
 import random
+import os
 #This is only imported so I can display an actual map
 import tkinter as Atrocitus_Map
 
@@ -65,10 +66,24 @@ class Player:
                 input("Press enter to end game...")
                 sys.exit()
                 
-        def Pray(self):
-                print("You pray to your deity for an answer")
+        def pray(self):
+                global pray_count
+                rando=random.randrange(0,4)
+                print("You pray to your deity for an answer... \n ")
                 if pray_count < 3:
-                        print("You hear a voice tell you to remember to check your inventory") or print("You hear a voice tell you to stay calm and assess the situation. Maybe use the help command.")
+                        if rando == 1 or rando == 0:
+                                print("You hear a voice tell you to remember to check your inventory.\n")
+                        elif rando == 2:
+                                print("You hear a voice tell you to stay calm and assess the situation. Maybe use the help command.\n")
+                        elif rando == 3 or rando == 4:
+                                print("You hear a voice tell you to remember to check your map.\n")
+                        pray_count = pray_count + 1
+
+                else:
+                        print("You wait for a minute but nothing happens.")
+
+        def yell(self):
+                print("hi")
                         
                         
 
@@ -140,7 +155,25 @@ TREE_HOUSE = Locale("Tree House", "You reach the top and enter the house. \n Whe
 COLLISEUM = Locale("Colliseum", "You arrive in a large Roman-esque Colliseum. \n You step out ont the empty sand field as a gate falls down behind you. \n Suddenly a gate on the other side of the Colliseum opens and a Gladiator steps out.")
 
 #This is a comment
-#Title function plays the title
+#The replay function doesnt work in IDLE, but if you test it by running the games script by itself it does work. I use globals so this was the easiest way to reset everything.
+#Im making this game so that it can run stand alone, not to be run out of IDLE. Please do not count this not running in IDLE against me.
+def Replay():
+        loopCount = 0
+        while loopCount == 0:
+                print("Would you like to play again?")
+                action = input()
+                if action == "yes":
+                        print("rebooting Atrocitus...")
+                        loopCount = 1
+                        python = sys.executable
+                        os.execl(python, python, * sys.argv)
+                elif action == "no":
+                        print("ok finishing game...\n")
+                        loopCount = 1
+
+                else:
+                        print("invalid answer, please enter yes or no\n")
+ #Title Function plays the title       
 def Title():
         print("ATROCITUS")
         print("v1.2.3")
@@ -440,6 +473,7 @@ def eggRoom():
                                 
                                 print("You go back through the door that came in")
                                 i=1
+                                Navigation[1][1]()
                                       
                         elif actionOne == ("look up"):
                                 print("A hideous creature with razer sharp claws pounces down on you and slashes off your limbs and eats your stomache as you lay alive and horrified, it leaves you and you die an extremely long and painful death.")
@@ -448,6 +482,7 @@ def eggRoom():
                                 print("Score: "+str(player1.score))
                                 print("The End!")
                                 print(player1.name+"'s Final Score: "+str(player1.score))
+                                Replay()
                                 input("Press enter to end game...")
                                 sys.exit()
 
@@ -480,6 +515,7 @@ def eggRoom():
                                 player1.showScore()
                                 print("You go back through the door that came in")
                                 i=1
+                                Navigation[1][1]()
                                       
                         elif actionOne == ("look up"):
                                 print("A hideous creature with razer sharp claws pounces down on you and slashes off your limbs and eats your stomache as you lay alive and horrified, it leaves you and you die an extremely long and painful death.")
@@ -487,6 +523,7 @@ def eggRoom():
                                 print("Score: "+str(playerScore))
                                 print("The End!")
                                 print(player1.name+"'s Final Score: "+str(player1.score))
+                                Replay()
                                 input("Press enter to end game...")
                                 sys.exit()
 
@@ -738,6 +775,8 @@ def trashCompactor():
                         print("Well you didn't press the button, hi I'm Kevin, the games developer aka xYukoNx.")
                         print("you typed: "+actionTrash+" which is not an option. Thats obvious. Which means you're an idiot.")
                         print("As punishment for your idiocy I'm sending you to a screen that is going to be your prison.")
+                        input("Press enter to meet your fate...")
+                        #This is a purposeful trap, designed to make the player for not using the help command and therefore have to restart the whole game and lose their progress.
                         while True is True:
                               print(player1.name+" is an idiot!")
 #6
@@ -992,8 +1031,9 @@ def elevatorRoom():
         currentLocation = ELEVATOR_ROOM.LocaleName
         player1.updateLocale()
         x=0
+        print(ELEVATOR_ROOM.LocaleDescription)
         while x == 0:
-            print(ELEVATOR_ROOM.LocaleDescription)
+            print("What do you do?")
             purpose = input()
             turnNumber=turnNumber+1
             
@@ -1010,9 +1050,11 @@ def elevatorRoom():
                     print("You walk over to the trash chute and look down it, suddenly you slip and fall in the trash chute.")
                     Navigation[2][2]()
             elif purpose == ("get map") and "map" not in Inventory:
-                    print("You walk over to the map and take it ofthe wall to put it in your bag.")
+                    print("You walk over to the map and take it off the wall to put it in your bag. \n ")
                     Inventory.append("map")
                     player1.updateInv()
+            elif purpose == ("pray"):
+                    player1.pray()
             elif purpose == ("map"):
                     Map()
 
@@ -1039,8 +1081,7 @@ def elevatorRoom():
             elif purpose == ("quit"):
                     player1.quitGame()
             elif purpose == "look":
-                     print("A barely lit room with doors to your left, right, and directly in front of you."
-                           "There is a trash chute by the elevator. The elevator stays open behind you. There is a map next to the elevator.")
+                     print("A barely lit room with doors to your left, right, and directly in front of you.\n There is a trash chute by the elevator. The elevator stays open behind you. There is a map next to the elevator.")
 
             elif purpose == ("go back"):
                     Navigation[2][1]()
@@ -1078,7 +1119,7 @@ def Map():
                 print("You dont have a map!")
 #This displays the players inventory to the player.
 def openInventory():
-        print(Inventory)
+        print(player1.inventory)
 #This runs the game
 def main():
         global playerName
