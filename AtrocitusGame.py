@@ -28,6 +28,7 @@ pray_count = 0
 
 
 
+
 class Player:
         def __init__(self, name, score, currLocale, move_count, inventory):
                 self.name = name
@@ -83,7 +84,10 @@ class Player:
                         print("You wait for a minute but nothing happens.")
 
         def yell(self):
-                print("hi")
+                
+                yelling = input("What do you wish to yell?: ")
+                print("You yell out: "+yelling+"\n")
+                return yelling
                         
                         
 
@@ -376,8 +380,9 @@ def escapePods():
                                         print("Your pod rockets into space, as you float you think endlessly about what just happened and the mysteries of the ship. \n ")
                                         
                                         
-                                        print("THE END!")
+                                        print("You Win!")
                                         print(player1.name+"'s Final Score: "+str(player1.score))
+                                        Replay()
                                         input("Press enter to end game...")
                                         sys.exit()
                                 elif KAL == 1:
@@ -385,8 +390,9 @@ def escapePods():
                                         print("Even though he's dead, you can't help but wondering if KAL is still out there, somewhere, waiting for you...")
                                         
                                         
-                                        print("THE END!")
+                                        print("You Win!")
                                         print(player1.name+"'s Final Score: "+str(player1.score))
+                                        Replay()
                                         input("Press enter to end game...")
                                         sys.exit()
                                 
@@ -579,7 +585,7 @@ def ventiLation():
                                 print("THE END!")
                                 sys.exit()
                         elif action == ("help"):
-                                print("Command List: stay, go lobby, help, quit")
+                                print("Command List: stay, go lobby, inventory, map, help, quit")
                         elif action == ("quit"):
                                 player1.quitGame()
                         elif action == "map":
@@ -587,6 +593,9 @@ def ventiLation():
 
                         elif action == "inventory":
                                 openInventory()
+                        
+                        elif action == "pray":
+                                player1.pray()
 
                         elif action == "look":
                                 print("You find a note that has the following sequence of chemicals and spaces written on it:")
@@ -684,6 +693,12 @@ def elevatoR():
                                         player1.updateInv()
                                 else:
                                         print("Nothing Happened")
+                        elif action == "map":
+                                map()
+                        elif action == "inventory":
+                                openInventory()
+                        elif action == "pray":
+                                player1.pray()
                         elif action == ("teleport"):
                                 player1.teleport()
                                 
@@ -706,7 +721,7 @@ def elevatoR():
                                 sys.exit()
                                 i=1
                         elif action == ("help"):
-                                print("Command List: go up, press button, help, quit, enter code, look")
+                                print("Command List: go up, press button, help, map, inventory, pray, quit, enter code, look")
                         elif action == "look":
                                 print("You fall into a dimmly lit room filled with trash.")
                                 print("You notice a silver door and a paper attached to it.")
@@ -723,6 +738,12 @@ def elevatoR():
                                         Inventory.append("flashlight")
                                         Inventory.append("batteries")
                                         player1.updateInv()
+                        elif action == "map":
+                                map()
+                        elif action == "inventory":
+                                openInventory()
+                        elif action == "pray":
+                                player1.pray()
                         elif action == "teleport":
                                 player1.teleport()
                         
@@ -761,7 +782,7 @@ def trashCompactor():
                         player1.teleport()
 
                 elif actionTrash == "help":
-                        print("press button, look, map, inventory, help, quit, look")
+                        print("press button, look, map, inventory, pray, help, quit, look")
 
                 elif actionTrash == "quit":
                         player1.quitGame()
@@ -769,7 +790,9 @@ def trashCompactor():
                 elif actionTrash == "map":
                         map()
                 elif actionTrash == "inventory":
-                        inventory()
+                        openInventory()
+                elif actionTrash == "pray":
+                        player1.pray()
                         
                 else:
                         print("Well you didn't press the button, hi I'm Kevin, the games developer aka xYukoNx.")
@@ -858,6 +881,7 @@ def trashChute():
                 print("You hit a sharp part of the chute and get impaled upon it, you bleed out and die.")
                 print(player1.name+"'s score: "+player1.score)
                 print("THE END!")
+                Replay()
                 sys.exit()
         else:
                 pass
@@ -894,15 +918,21 @@ def secretRoom():
                 elif action == "teleport":
                         player1.teleport()
 
+                
+
                 elif action == "look":
                         print("You've teleported into a dark room with no light")
+
+                elif action == "pray":
+                        player1.pray()
+                        
                 elif action == "quit":
                         player1.quitGame()
 
                 elif action == "map":
                         map()
                 elif action == "help":
-                        print("flashlight, look, inventory, map, help, quit")
+                        print("flashlight, look, inventory, pray, map, help, quit")
 
                 elif action == "inventory":
                         openInventory()
@@ -911,6 +941,8 @@ def secretRoom():
                         Navigation[3][2]()
                 else:
                         print("Having no sense of direction and no source of light you wander about until you die.")
+                        print("The End!")
+                        Replay()
                         player1.quitGame()
                         
                 
@@ -922,36 +954,61 @@ def jungleRoom():
         currentLocation = JUNGLE_ROOM.LocaleName
         player1.updateLocale()
         print(JUNGLE_ROOM.LocaleDescription)
-        action = input()
-        if action == "follow tracks":
-                print("You follow the tracks to a teleporter.")
-                print("As you walk over to the teleporter you are ambushed by a giant ape.")
-                print("what do you do?")
-                action2 = input()
-                if action2 == "shoot it" and "M16" in player1.inventory and "Ammo" in player1.inventory:
-                        print(player1.Use("M16"))
-                        print("You shoot the gorilla and kill it")
-                        print("Upon cutting the gorilla open you find a taser")
-                        print("You take the taser and go into the teleporter.")
-                        Inventory.append("taser")
-                        player1.updateInventory()
-                        print("You press the button and teleport back to the lobby")
-                elif action2 == "help":
-                        print("Command List: shoot it, stand still, help, quit")
-                elif action2 == "quit":
+        i=0
+        while i == 0:
+                print("What do you do?")
+                action = input()
+                if action == "follow tracks":
+                        print("You follow the tracks to a teleporter.")
+                        print("As you walk over to the teleporter you are ambushed by a giant ape.")
+                        print("what do you do?")
+                        action2 = input()
+                        if action2 == "shoot it" and "M16" in player1.inventory and "Ammo" in player1.inventory:
+                                print(player1.Use("M16"))
+                                print("You shoot the gorilla and kill it")
+                                print("Upon cutting the gorilla open you find a taser")
+                                print("You take the taser and go into the teleporter.")
+                                Inventory.append("taser")
+                                player1.updateInventory()
+                                print("You press the button and teleport back to the lobby")
+                        elif action2 == "stand still":
+                                print("You stand still so the gorilla kills you")
+                                print("The end!")
+                                Replay()
+                                print("Thanks for playing!!!!!")
+                                sys.exit()
+                        elif action2 == "pray":
+                                player1.pray()
+                        elif action2 == "map":
+                                Map()
+                        elif action2 == "inventory":
+                                openInventory()
+                        
+                        elif action2 == "help":
+                                print("Command List: shoot it, pray, map, inventory, stand still, help, quit")
+                        elif action2 == "quit":
+                                player1.quitGame()
+                        
+                elif action == "quit":
                         player1.quitGame()
-        elif action == "quit":
-                player1.quitGame()
-        elif action == "teleport":
-                player1.teleport()
-        elif action == "climb vines":
-                print("You start climbing up the vines towards the tree house.")
-                Navigation[5][2]()
-        elif action == "help":
-                print("Commands: follow tracks, climb vines, quit, help.")
-        elif action == "teleport" and "Developers Portal Gun" in player1.inventory:
-                player1.teleport()
-                
+                elif action == "pray":
+                        player1.pray()
+                elif action == "teleport":
+                        player1.teleport()
+                elif action == "climb vines":
+                        print("You start climbing up the vines towards the tree house.")
+                        Navigation[5][2]()
+                elif action == "help":
+                        print("Commands: follow tracks, climb vines, map, inventory, pray, quit, help.")
+                elif action == "teleport" and "Developers Portal Gun" in player1.inventory:
+                        player1.teleport()
+                elif action == "map":
+                        map()
+                elif action == "inventory":
+                        openInventory()
+                else:
+                        print("Invalid Command")
+        
                 
                 
                 
@@ -979,11 +1036,36 @@ def treeHouse():
                                         print("You climb down the vines back into the Jungle Room.")
                                         Navigation[4][2]()
                                 elif action == "help":
-                                        print("Command List: take sword, climb down, help, quit")
+                                        print("Command List: take sword, climb down, pray, help, quit")
                                 elif action == "quit":
                                         player1.quitGame()
+                                elif action == "pray":
+                                        player1.pray()
+                                elif action == "map":
+                                        Map()
+                                elif action == "inventory":
+                                        openInventory()
+                                
                 elif action == "climb down":
                         print("You climb down the vines back into the Jungle Room.")
+                        Navigation[4][2]
+                
+                        
+                        
+                elif action == "pray":
+                        player1.pray()
+                elif action == "quit":
+                        player1.quitGame()
+                elif action == "help":
+                        print("take idol, help, map, inventory, quit, pray, climb down")
+                elif action == "map":
+                        Map()
+                elif action == "inventory":
+                        openInventory()
+                else:
+                        print("Invalid command")
+               
+                
                 
 
 def colliSeum():
@@ -1002,19 +1084,37 @@ def colliSeum():
                         while i == 0:
                                 if action == "take armor":
                                         player1.Take("armor")
+                                elif action == "map":
+                                        Map()
+                                elif action == "inventory":
+                                        openInventory()
+                                elif action == "pray":
+                                        player1.pray()
                                 elif action == "teleporter":
                                         print("You walk over to the teleporter and teleport back to the Jungle Room")
                                 elif action == "help":
-                                        print("Command List: teleporter, take armor, quit, help.")
+                                        print("Command List: teleporter, take armor, pray, map, inventory, quit, help.")
                                 elif action == "quit":
                                         player1.quitGame()
                 elif action == "nothing":
                         print("The Gladiator charges you and catches you off guard with a slash attack. \n The last thing you see is the headless corpse that was once your body as your head rolls across the sand. \n You are dead. \n GAME OVER.")
                         player1.quitGame()
+                elif action == "pray":
+                        player1.pray()
+                elif action == "yell":
+                        if player1.yell() == "hi" or player1.yell() == "hello":
+                                print("Gladiator: Do not insult me with your pleasantries! Prepare to fight me or I shall have your head!")
+                        else:
+                                print("Gladiator: Silence! I do not care to speak with you! Prepare to fight!")
                 elif action == "help":
-                        print("Command List: fight, use sword, nothing, help, quit")
+                        print("Command List: fight, use sword, yell, inventory, map, pray, nothing, help, quit")
                 elif action == "quit":
                         player1.quitGame()
+                elif action == "map":
+                        Map()
+                elif action == "inventory":
+                        openInventory()
+                
                 else:
                         print("Invalid Command")
         
@@ -1049,7 +1149,7 @@ def elevatorRoom():
             elif purpose == ("go trash chute"):
                     print("You walk over to the trash chute and look down it, suddenly you slip and fall in the trash chute.")
                     Navigation[2][2]()
-            elif purpose == ("get map") and "map" not in Inventory:
+            elif purpose == ("take map") and "map" not in Inventory:
                     print("You walk over to the map and take it off the wall to put it in your bag. \n ")
                     Inventory.append("map")
                     player1.updateInv()
@@ -1068,6 +1168,15 @@ def elevatorRoom():
             #As with 
             elif purpose == ("teleport"):
                     player1.teleport()
+                    
+            elif purpose == "yell":
+                    
+                    if player1.yell() == "hi":
+                            print("hello there!")
+
+                    else:
+                            print("nothing happened...\n")
+            
         
 
             elif purpose == ("go right"):
