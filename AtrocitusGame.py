@@ -3,6 +3,9 @@
 #This is another comment for a commit
 import sys
 import random
+#This is only imported so I can display an actual map
+import tkinter as Atrocitus_Map
+
 playerScore=0
 playerName=""
 key=0
@@ -18,6 +21,11 @@ Inventory = []
 Flashlight="flashlight"
 lobbymap="map"
 KAL = 0
+pray_count = 0
+
+
+
+
 
 class Player:
         def __init__(self, name, score, currLocale, move_count, inventory):
@@ -56,6 +64,13 @@ class Player:
                 print("THE END!")
                 input("Press enter to end game...")
                 sys.exit()
+                
+        def Pray(self):
+                print("You pray to your deity for an answer")
+                if pray_count < 3:
+                        print("You hear a voice tell you to remember to check your inventory") or print("You hear a voice tell you to stay calm and assess the situation. Maybe use the help command.")
+                        
+                        
 
         def teleport(self):
                 if "Developers Portal Gun" in self.inventory:
@@ -1053,8 +1068,12 @@ Navigation = [       [None, mainFrame, None]
 #This function displays the map to the players                
 def Map():
         if "map" in player1.inventory:
-                print("You are currently in: "+player1.currLocale)
-                print(Navigation)
+                
+                root = Atrocitus_Map.Tk()
+                image = Atrocitus_Map.PhotoImage(file="AtrocitusGameMap.gif")
+                label = Atrocitus_Map.Label(image=image)
+                label.pack()
+                root.mainloop()
         else:
                 print("You dont have a map!")
 #This displays the players inventory to the player.
