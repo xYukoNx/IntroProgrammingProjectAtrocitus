@@ -410,8 +410,9 @@ def eggRoom():
                                 
                 if actionOne == ("nothing") or actionOne == ("stand still"):
                         print("The goop stops dripping")
-                        print("You see a key card on the ground and pick it up")
+                        print("You see a key card and a black note with the numbers 5158 on the ground and pick them up")
                         Inventory.append("key")
+                        Inventory.append("Black Note: 5158")
                         player1.updateInv()
                                 
                         print("You go back through the door that came in")
