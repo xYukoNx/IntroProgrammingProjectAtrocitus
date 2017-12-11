@@ -159,7 +159,7 @@ TRASH_CHUTE = Locale("Trash Chute", "You plummet down the shaft in darkness")
 TRASH_COMPACTOR = Locale("Trash Compactor", "You fall into a dimmly lit room filled with trash. \n You notice a silver door and a paper attached to it. \n The paper says (Don't trust KAL, power must remain off!) \n You open the door and you see a control panel. On the panel there is a button that says teleport.")
 JUNGLE_ROOM = Locale("Jungle Room",  "You arrive in a room filled with jungle plants and trees. \n In the ground you notice large animal tracks. \n To the side there is a large tree with a house built into it and a few other trees, it has thick vines hanging down from it. \n The vines touch the ground.")
 ESCAPE_PODS = Locale("Escape Pods", "You open the door with the key you found in the egg shell room and go inside. \n You walk into an escape pod room that isfully operational, the coordinates are set for a random point in the milky way galaxy.")
-ELEVATOR = Locale("Elevator", "You've reentered the elevator. \n The elevator closes shut and locks behind you. \n  Outside the door you hear something violently clawing at the door. \n The Buttons on the elevator are all unlit except for the open door button and the servicce button, Above you there is a hatch that allows maitnance to access the shaft. \n The Buttons on the elevator are all unlit except for the open door button and the servicce button, Above you there is a hatch that allows maitnance to access the shaft.")
+ELEVATOR = Locale("Elevator", "You've reentered the elevator. \n The elevator closes shut and locks behind you. \n  Outside the door you hear something violently clawing at the door. \n The Buttons on the elevator are all unlit except for the open door button and the servicce button, Above you there is a hatch that allows maitnance to access the shaft. \n ")
 TREE_HOUSE = Locale("Tree House", "You reach the top and enter the house. \n When you go inside you find a room lit by torches. \n In the middle og the room is an ancient idol sitting atop a pedastool.")
 COLLISEUM = Locale("Colliseum", "You arrive in a large Roman-esque Colliseum. \n You step out ont the empty sand field as a gate falls down behind you. \n Suddenly a gate on the other side of the Colliseum opens and a Gladiator steps out.")
 
@@ -286,6 +286,7 @@ def mainFrame():
                                     elif actionTwo == ("nothing") or actionTwo == ("leave"):
                                             print("You leave through the door that you came in")
                                             h=1
+                                            Navigation[1][1]()
 
                                     else:
                                         print("Invalid Command")
@@ -347,6 +348,7 @@ def mainFrame():
                                     elif actionTwo == ("noting") or actionTwo == ("leave"):
                                             print("You leave through the door that you came in")
                                             h=1
+                                            Navigation[1][1]()
 
                                     else:
                                         print("Invalid Command")
@@ -407,6 +409,7 @@ def escapePods():
                         elif answerTwo == ("no") or answerTwo == ("NO"):
                                 print("You leave the Escape Pod room through the door that you entered.")
                                 h=1
+                                Navigation[1][1]()
 
                         else:
                                 print("Invalid Command")
@@ -456,6 +459,7 @@ def escapePods():
                         elif answerTwo == ("no") or answerTwo == ("NO"):
                                 print("You leave the Escape Pod room through the door that you entered.")
                                 h=1
+                                Navigation[1][1]()
 
                         else:
                                 print("Invalid Command")
