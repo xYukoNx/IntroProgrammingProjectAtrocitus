@@ -17,6 +17,11 @@ visitElevR=0
 visitEscaP=0
 visitElevator=0
 visitVentilation=0
+JR=0
+SR=0
+TH=0
+CS=0
+TC=0
 currentLocation = ""
 Inventory = []
 Flashlight="flashlight"
@@ -786,9 +791,16 @@ def elevatoR():
 def trashCompactor():
         global playerName
         global currentLocation
+        global TC
         currentLocation = TRASH_COMPACTOR.LocaleName
         player1.updateLocale()
         print(TRASH_COMPACTOR.LocaleDescription)
+        if TC == 0:
+                playerScore = playerScore + 50
+                player1.updateScore()
+                TC = TC + 1
+        else:
+                playerScore = playerScore
         i=0
         while i == 0:
                 print("What do you do?")
@@ -917,9 +929,16 @@ def trashChute():
 #40
 def secretRoom():
         global currentLocation
+        global SR
         currentLocation = SECRET_ROOM.LocaleName
         player1.updateLocale()
         print(SECRET_ROOM.LocaleDescription)
+        if SR == 0:
+                playerScore = playerScore + 100
+                player1.updateScore()
+                SR == SR + 1
+        else:
+                playerScore = playerScore
         i=0
         while i == 0:
                 print("What do you do?")
@@ -992,9 +1011,16 @@ def secretRoom():
 #42
 def jungleRoom():
         global currentLocation
+        global JR
         currentLocation = JUNGLE_ROOM.LocaleName
         player1.updateLocale()
         print(JUNGLE_ROOM.LocaleDescription)
+        if JR == 0:
+                playerScore = playerScore + 100
+                player1.updateScore()
+                JR = JR + 1
+        else:
+                playerScore = playerScore
         i=0
         while i == 0:
                 print("What do you do?")
@@ -1044,7 +1070,7 @@ def jungleRoom():
                 elif action == "teleport" and "Developers Portal Gun" in player1.inventory:
                         player1.teleport()
                 elif action == "map":
-                        map()
+                        Map()
                 elif action == "inventory":
                         openInventory()
                 else:
@@ -1056,9 +1082,16 @@ def jungleRoom():
 def treeHouse():
         
         global currentLocation
+        global TH
         currentLocation = TREE_HOUSE.LocaleName
         player1.updateLocale()
         print(TREE_HOUSE.LocaleDescription)
+        if TH == 0:
+                playerScore = playerScore + 100
+                player1.updateScore()
+                TH = TH + 1
+        else:
+                playerScore = playerScore
         i=0
         print("What do you do?")
         while i == 0:
@@ -1112,9 +1145,17 @@ def treeHouse():
 def colliSeum():
 
         global currentLocation
+        global CS
         currentLocation = COLLISEUM.LocaleName
         player1.updateLocale()
         print(COLLISEUM.LocaleDescription)
+        if CS == 0:
+                playerScore = playerScore+100
+                player1.updateScore()
+                CS = CS + 1
+        else:
+                playerScore = playerScore
+                
         i=0
         print("What do you do?")
         while i==0:
