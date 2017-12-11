@@ -151,7 +151,7 @@ class Locale:
                 self.LocaleDescription = LocaleDescription
 
 MAIN_FRAME = Locale("Main Frame", "You open the door with the key you found and go in. \n Theres a large lever with a label on it that says POWER. \n What do you do?")
-ELEVATOR_ROOM = Locale("Elevator Room", "You step out into a barely lit room with doors to your left, right, and directly in front of you. There is a trash chute by the elevator. The elevator stays open behind you. \n There is a map next to the elevator.")
+ELEVATOR_ROOM = Locale("Elevator Room", "You step out into a barely lit room with doors to your left, right, and directly in front of you. There is a trash chute by the elevator. The elevator stays open behind you. \nThere is a map next to the elevator.")
 VENTILATION = Locale("Ventilation", "You find a note that has the following sequence of chemicals and spaces written on it: \n Potassium, Aluminium, , Iodine, Sulfur, , Barium, Darmstadtium. \n As you move through the shaft you hear high pitched scream coming from behind you as well as a rumbling in the vents. \n You make it to a part of the vent labeled Lobby.")
 EGG_ROOM = Locale("Egg Room", "You enter the room to your left and step in. \n The room is filled with what would appear to be cracked egg shells. \n There are no doors, as you walk bout the room you feel slime dripping from the ceiling onto your head.")
 SECRET_ROOM = Locale("Secret Room", "You've teleported into a dark room with no light")
@@ -269,7 +269,7 @@ def mainFrame():
 
                                     if action == "use taser":
                                             
-                                            if "taser" in player1.inventory:
+                                            if "taser" in player1.inventory and "batteries" in player1.inventory:
                                                     
                                                     print("You tase the crap out of KAL-1337. \n The electric shock fried its motherboard. \n After examining KALs eye thing, you discover the code (5549) engraved into it.")
                                                     playerScore = playerScore + 1000
@@ -277,6 +277,8 @@ def mainFrame():
                                                     player1.showScore()
                                                     print("You leave the room through the door.")
                                                     Navigation[1][1]()
+                                            elif "taser" in player1.inventory and "batteries" not in player1.inventory:
+                                                    print("Oh no! You don't have anymore batteries!")
                                             else:
                                                     print("You do not have this item in your inventory")
                                     else:
@@ -289,6 +291,7 @@ def mainFrame():
                                              print("... \n ")
                                              print("THE END!")
                                              print(player1.name+"'s Final Score: "+str(player1.score))
+                                             Replay()
                                              input("Press enter to end game")
                                              sys.exit()
 
@@ -588,6 +591,7 @@ def elevatoR():
 #7
 def trashCompactor():
         global playerName
+        global playerScore
         global currentLocation
         global TC
         currentLocation = TRASH_COMPACTOR.LocaleName
@@ -728,6 +732,7 @@ def trashChute():
 def secretRoom():
         global currentLocation
         global SR
+        global playerScore
         currentLocation = SECRET_ROOM.LocaleName
         player1.updateLocale()
         print(SECRET_ROOM.LocaleDescription)
@@ -741,7 +746,10 @@ def secretRoom():
         while i == 0:
                 print("What do you do?")
                 action = input()
-                if action == "use flashlight" or action == "flashlight" and "flashlight" in Inventory:
+                if action == "use flashlight" or action == "flashlight" and "flashlight" in Inventory and "batteries" in Inventory:
+                        player1.Use("flashlight")
+                        Inventory.remove("batteries")
+                        player1.updateInv()
                         print("You turn on your flashlight and look around")
                         print("There is a teleporter and a safe")
                         while i==0:
@@ -750,16 +758,17 @@ def secretRoom():
                                 if action2 == ("safe"):
                                         password = input("Please enter in the 4digit password: ")
                                         if password == ("5158"):
-                                                print("The safe opens and contains an M16 Rifle and 6 fully loaded magazines")
+                                                print("The safe opens and contains an M16 Rifle and 2 fully loaded magazines")
                                                 print("You take the gun and its ammo and put the ammo in your bag whilst swinging the gun around your shoulder using the strap.")
                                                 Inventory.append("M16")
+                                                Inventory.append("Ammo")
                                                 Inventory.append("Ammo")
                                                 player1.updateInv()
                                         else:
                                                 print("That password is invalid")
                                 elif action2 == ("teleporter"):
                                         print("You walk over to the teleporter and hit the button")
-                                        Navigation[4][2]
+                                        Navigation[4][2]()
                                 elif action2 == "map":
                                         Map()
                                 elif action2 == "inventory":
@@ -810,6 +819,7 @@ def secretRoom():
 def jungleRoom():
         global currentLocation
         global JR
+        global playerScore
         currentLocation = JUNGLE_ROOM.LocaleName
         player1.updateLocale()
         print(JUNGLE_ROOM.LocaleDescription)
@@ -820,39 +830,46 @@ def jungleRoom():
         else:
                 playerScore = playerScore
         i=0
+        m = 0
         while i == 0:
                 print("What do you do?")
                 action = input()
                 if action == "follow tracks":
                         print("You follow the tracks to a teleporter.")
                         print("As you walk over to the teleporter you are ambushed by a giant ape.")
-                        print("what do you do?")
-                        action2 = input()
-                        if action2 == "shoot it" and "M16" in player1.inventory and "Ammo" in player1.inventory:
-                                print(player1.Use("M16"))
-                                print("You shoot the gorilla and kill it")
-                                print("Upon cutting the gorilla open you find a taser")
-                                print("You take the taser and go into the teleporter.")
-                                Inventory.append("taser")
-                                player1.updateInventory()
-                                print("You press the button and teleport back to the lobby")
-                        elif action2 == "stand still":
-                                print("You stand still so the gorilla kills you")
-                                print("The end!")
-                                Replay()
-                                print("Thanks for playing!!!!!")
-                                sys.exit()
-                        elif action2 == "pray":
-                                player1.pray()
-                        elif action2 == "map":
-                                Map()
-                        elif action2 == "inventory":
-                                openInventory()
-                        
-                        elif action2 == "help":
-                                print("Command List: shoot it, pray, map, inventory, stand still, help, quit")
-                        elif action2 == "quit":
-                                player1.quitGame()
+                        while m == 0:
+                                print("what do you do?")
+                                action2 = input()
+                                if action2 == "shoot it" and "M16" in player1.inventory and "Ammo" in player1.inventory:
+                                        Inventory.remove("Ammo")
+                                        player1.updateInv()
+                                        print(player1.Use("M16"))
+                                        print("You shoot the gorilla and kill it")
+                                        print("Upon cutting the gorilla open you find a taser")
+                                        print("You take the taser and go into the teleporter.")
+                                        Inventory.append("taser")
+                                        player1.updateInv()
+                                        print("You press the button and teleport back to the lobby")
+                                        Navigation[1][1]()
+                                elif action2 == "stand still":
+                                        print("You stand still so the gorilla kills you")
+                                        print("The end!")
+                                        Replay()
+                                        print("Thanks for playing!!!!!")
+                                        sys.exit()
+                                elif action2 == "pray":
+                                        player1.pray()
+                                elif action2 == "map":
+                                        Map()
+                                elif action2 == "inventory":
+                                        openInventory()
+                                
+                                elif action2 == "help":
+                                        print("Command List: shoot it, pray, map, inventory, stand still, help, quit")
+                                elif action2 == "quit":
+                                        player1.quitGame()
+                                else:
+                                        print("Invalid Command")
                         
                 elif action == "quit":
                         player1.quitGame()
@@ -881,6 +898,7 @@ def treeHouse():
         
         global currentLocation
         global TH
+        global playerScore
         currentLocation = TREE_HOUSE.LocaleName
         player1.updateLocale()
         print(TREE_HOUSE.LocaleDescription)
@@ -895,15 +913,18 @@ def treeHouse():
         while i == 0:
                 action = input()
                 if action == "take idol":
-                        player1.Take(idol)
-                        print("Suddenly a loud click is made and a hidden compartment swings open to reveal a sword")
-                        print("What do you do?")
+                        player1.Take("idol")
+                        print("Suddenly a loud click is made and a hidden compartment swings open to reveal a sword and some batteries")
+                        
                         while i == 0:
+                                print("What do you do?")
                                 action = input()
                                 if action == "take sword":
                                         player1.Take("sword")
                                         print("A hidden teleporter comes out and teleports you!")
                                         Navigation[4][1]()
+                                elif action == "take batteries":
+                                        player1.Take("batteries")
                                 elif action == "climb down":
                                         print("You climb down the vines back into the Jungle Room.")
                                         Navigation[4][2]()
@@ -920,7 +941,7 @@ def treeHouse():
                                 
                 elif action == "climb down":
                         print("You climb down the vines back into the Jungle Room.")
-                        Navigation[4][2]
+                        Navigation[4][2]()
                 
                         
                         
@@ -944,6 +965,7 @@ def colliSeum():
 
         global currentLocation
         global CS
+        global playerScore
         currentLocation = COLLISEUM.LocaleName
         player1.updateLocale()
         print(COLLISEUM.LocaleDescription)
@@ -972,6 +994,7 @@ def colliSeum():
                                         player1.pray()
                                 elif action == "teleporter":
                                         print("You walk over to the teleporter and teleport back to the Jungle Room")
+                                        Navigation[4][2]()
                                 elif action == "help":
                                         print("Command List: teleporter, take armor, pray, map, inventory, quit, help.")
                                 elif action == "quit":
@@ -1076,7 +1099,7 @@ def elevatorRoom():
                     Navigation[2][1]()
                     
             elif purpose == ("help"):
-                    print("Command List: go back, go foraward, go left, go right, quit, help, get map, inventory, map, look")
+                    print("Command List: go back, go trash chute, go foraward, go left, go right, quit, help, take map, inventory, map, look")
                         
             else:
                 print("Invalid Command")
