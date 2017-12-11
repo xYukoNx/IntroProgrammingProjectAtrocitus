@@ -11,6 +11,7 @@ playerScore=0
 playerName=""
 key=0
 turnNumber=0
+#The Variables in between this xomment and the next comment are used to keep track of if locations have been visited or not.
 MF=0
 EgR=0
 ER=0
@@ -22,6 +23,7 @@ SR=0
 TH=0
 CS=0
 TC=0
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 currentLocation = ""
 Inventory = []
 Flashlight="flashlight"
@@ -71,7 +73,7 @@ class Player:
                 print("THE END!")
                 input("Press enter to end game...")
                 sys.exit()
-                
+   #Added this so god can give the player random random hints that are helpful, but he can only do it 3 times.             
         def pray(self):
                 global pray_count
                 rando=random.randrange(0,4)
@@ -87,7 +89,7 @@ class Player:
 
                 else:
                         print("You wait for a minute but nothing happens.")
-
+#Added this command so I could put easter eggs in Elevator Room and Colliseum
         def yell(self):
                 
                 yelling = input("What do you wish to yell?: ")
@@ -332,7 +334,7 @@ def escapePods():
         #If the player has already visited Escape Pods they will not get points
         
         player1.showScore()
-                
+        print(ESCAPE_PODS.LocaleDescription)
         while h == 0:
                 print("Do you wish to get in an escape pod and activate it?")
                 answerTwo = input()
@@ -408,6 +410,9 @@ def eggRoom():
                                 
                 if actionOne == ("nothing") or actionOne == ("stand still"):
                         print("The goop stops dripping")
+                        print("You see a key card on the ground and pick it up")
+                        Inventory.append("key")
+                        player1.updateInv()
                                 
                         print("You go back through the door that came in")
                         i=1
@@ -1083,9 +1088,9 @@ def elevatorRoom():
         
 
             elif purpose == ("go right"):
-                if key == 0:
+                if "key" not in player1.inventory:
                     print("The door is locked")
-                    input("Press enter to continue...")
+                    
                     
                 else:
                     Navigation[1][2]()
