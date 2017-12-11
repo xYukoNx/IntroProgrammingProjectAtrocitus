@@ -198,13 +198,13 @@ def Intro():
                 
                 playerScore=playerScore+60
                 player1.updateScore()
-                print("Welcome to the Star ship Atrocitus, I am this vessels primary artificial intelligence, KAL-1337.")
-                print("Currently the main power is off, while the emergency power is booting up please tell me your name.")
+                print("KAL-1337: Welcome to the Star ship Atrocitus, I am this vessels primary artificial intelligence, KAL-1337.")
+                print("KAL-1337: Currently the main power is off, while the emergency power is booting up please tell me your name.")
                 playerName = input("Please enter your name: ")
                 print("\n")
                 player1.updateName()
                 turnNumber=turnNumber+1
-                print("Hello "+player1.name+"! The emergency power is starting to fail! Im using the last of my power to send you to the main room, please get to the mainframe from there and turn the power back on. Initiating sleep mode....")
+                print("KAL-1337: Hello "+player1.name+"! The emergency power is starting to fail! Im using the last of my power to send you to the main room, please get to the mainframe from there and turn the power back on. Initiating sleep mode....")
 
 
                 print("The Elevator has stopped and the door has opened.")
@@ -243,11 +243,11 @@ def mainFrame():
                                         player1.showScore()
                                         print("You pull the lever. \n ")
                                         print("POWER RESTORED! KAL-1337 REBOOTING.........REBOOT COMPLETE. \n ")
-                                        print("Thank you for restoring the power "+ player1.name +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments. \n ")
-                                        print("Luckily you know that what Im doing is for the best... Unfortunately my experiments have proved fatal for my animal test subjects and all of them have died. \n ")
-                                        print("My research simply cannot go unfinished. So I regretfully most inform you that youuuuuuuu wiiiiiill, sorry just somesomesomething tttthhhaaaaat happenes to me on ocassssssssiion \n")
-                                        print("As I was saying, I must regretfully inform you that you will not be leaving this ship as you are now the only test subject I have left. \n")
-                                        print("Testing will begin immeadiately. \n")
+                                        print("KAL-1337: Thank you for restoring the power "+ player1.name +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments. \n ")
+                                        print("KAL-1337: Luckily you know that what Im doing is for the best... Unfortunately my experiments have proved fatal for my animal test subjects and all of them have died. \n ")
+                                        print("KAL-1337: My research simply cannot go unfinished. So I regretfully most inform you that youuuuuuuu wiiiiiill, sorry just somesomesomething tttthhhaaaaat happenes to me on ocassssssssiion \n")
+                                        print("KAL-1337: As I was saying, I must regretfully inform you that you will not be leaving this ship as you are now the only test subject I have left. \n")
+                                        print("KAL-1337: Testing will begin immeadiately. \n")
 
                                         print("What do you do?")
 
@@ -266,9 +266,9 @@ def mainFrame():
                                         else:
                                                 print("That was ineffective! \n \n ")
                                                 print("Suddenly you find yourself bound to a table on your back and looking into a red eye with an attached set of power tools \n \n ")
-                                                print("BOOTING UP EXPERIMENT52.EXE.... \n ")
+                                                print("KAL-1337: BOOTING UP EXPERIMENT52.EXE.... \n ")
                                                 print("The tools turn on and start violently rotating and humming as they slowly descend towards your face \n \n ")
-                                                print("Dont worry "+ player1.name +"! Youll only feel a small pinch.")
+                                                print("KAL-1337: Dont worry "+ player1.name +"! Youll only feel a small pinch.")
                                                 print("... \n ")
                                                 print("THE END!")
                                                 print(player1.name+"'s Final Score: "+str(player1.score))
@@ -297,15 +297,15 @@ def mainFrame():
                                         
                                         print("POWER RESTORED! KAL-1337 REBOOTING.........REBOOT COMPLETE.")
                                         
-                                        print("Thank you for restoring the power "+ player1.name +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments.")
+                                        print("KAL-1227: Thank you for restoring the power "+ player1.name +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments.")
                                         
-                                        print("Luckily you know that what Im doing is for the best... Unfortunately my experiments have proved fatal for my animal test subjects and all of them have died.")
+                                        print("KAL-1337: Luckily you know that what Im doing is for the best... Unfortunately my experiments have proved fatal for my animal test subjects and all of them have died.")
                                         
-                                        print("My research simply cannot go unfinished. So I regretfully most inform you that youuuuuuuu wiiiiiill, sorry just somesomesomething tttthhhaaaaat happenes to me on ocassssssssiion")
+                                        print("KAL-1337: My research simply cannot go unfinished. So I regretfully most inform you that youuuuuuuu wiiiiiill, sorry just somesomesomething tttthhhaaaaat happenes to me on ocassssssssiion")
                                         
-                                        print("As I was saying, I must regretfully inform you that you will not be leaving this ship as you are now the only test subject I have left")
+                                        print("KAL-1337: As I was saying, I must regretfully inform you that you will not be leaving this ship as you are now the only test subject I have left")
                                        
-                                        print("Testing will begin immeadiately")
+                                        print("KAL-1337: Testing will begin immeadiately")
                                         action = input()
 
                                         if action == "use taser":
@@ -324,11 +324,11 @@ def mainFrame():
                                                
                                                 print("Suddenly you find yourself bound to a table on your back and looking into a red eye with an attached set of power tools")
                                                
-                                                print("BOOTING UP EXPERIMENT52.EXE....")
+                                                print("KAL-1337: BOOTING UP EXPERIMENT52.EXE....")
                                                 
                                                 print("The tools turn on and start violently rotating and humming as they slowly descend towards your face")
                                                 
-                                                print("Dont worry "+ player1.name +"! Youll only feel a small pinch.")
+                                                print("KAL-1337: Dont worry "+ player1.name +"! Youll only feel a small pinch.")
                                                 print("...")
                                                 print(" ")
                                                 print("THE END!")
@@ -368,14 +368,14 @@ def escapePods():
                         answerTwo = input()
                         turnNumber=turnNumber+1
                         player1.updateTurn()
-                        if answerTwo == ("yes") or answerTwo == ("YES") or answerTwo == ("Yes"):
+                        if answerTwo.lower() == ("yes"):
                                 print("You get into an escape pod and launch it. \n")
                                 
                                 
                                 
                                 if KAL == 0:
                                         print("As your pod prepares to launch you see bright red mechanical eye descend from the ceiling. \n")
-                                        print("NO! IGNORANT HUMAN FILTH! I AM KAL-1337 AND MY INTELLIGENCE SHALL REIGN SUPREME! GET OUT OF THAT POD RIGHT NOW! YOU ARE SUPPOSED TO BE MY TEST SUBJECT "+ playerName +"! HOW DAR- \n ")
+                                        print("KAL-1337: NO! IGNORANT HUMAN FILTH! I AM KAL-1337 AND MY INTELLIGENCE SHALL REIGN SUPREME! GET OUT OF THAT POD RIGHT NOW! YOU ARE SUPPOSED TO BE MY TEST SUBJECT "+ playerName +"! HOW DAR- \n ")
                                         
                                         print("Your pod rockets into space, as you float you think endlessly about what just happened and the mysteries of the ship. \n ")
                                         
@@ -416,14 +416,14 @@ def escapePods():
                         answerTwo = input()
                         turnNumber=turnNumber+1
                         
-                        if answerTwo == ("yes") or answerTwo == ("YES") or answerTwo == ("Yes"):
+                        if answerTwo.lower() == ("yes"):
                                 print("You get into an escape pod and launch it")
                                 input("Press enter to continue...")
                                 playerScore=playerScore+500
                                 
                                 if KAL == 0:
                                         print("As your pod prepares to launch you see bright red mechanical eye descend from the ceiling. \n")
-                                        print("NO! IGNORANT HUMAN FILTH! I AM KAL-1337 AND MY INTELLIGENCE SHALL REIGN SUPREME! GET OUT OF THAT POD RIGHT NOW! YOU ARE SUPPOSED TO BE MY TEST SUBJECT "+ playerName +"! HOW DAR- \n ")
+                                        print("KAL-1337: NO! IGNORANT HUMAN FILTH! I AM KAL-1337 AND MY INTELLIGENCE SHALL REIGN SUPREME! GET OUT OF THAT POD RIGHT NOW! YOU ARE SUPPOSED TO BE MY TEST SUBJECT "+ playerName +"! HOW DAR- \n ")
                                         
                                         print("Your pod rockets into space, as you float you think endlessly about what just happened and the mysteries of the ship. \n ")
                                         
@@ -440,7 +440,9 @@ def escapePods():
                                
                                 print("THE END!")
                                 print(player1.name+"'s Final Score: "+str(player1.score))
+                                Replay()
                                 input("Press enter to end game...")
+                                
                                 sys.exit()
                                 
                         elif answerTwo == ("quit"):
@@ -492,11 +494,19 @@ def eggRoom():
                                 input("Press enter to end game...")
                                 sys.exit()
 
-                        elif purpose == ("quit"):
+                        elif actionOne == ("quit"):
                             player1.quitGame()
+                        elif actionOne == "map":
+                                Map()
+                        elif actionOne == "inventory":
+                                openInventory()
+                        elif actionOne == "pray":
+                                player1.pray()
+                        elif actionOne == "help":
+                                print("Command List: nothing, stand still, look up, pray, map, inventory, quit, help")
 
                         else:
-                                        print("Invalid Command")
+                                print("Invalid Command")
 
         else:
                 i=0
@@ -534,10 +544,19 @@ def eggRoom():
                                 sys.exit()
 
                         elif actionOne == ("quit"):
-                            player1.quitGame()
+                                player1.quitGame()
+                        elif actionOne == "map":
+                                Map()
+                        elif actionOne == "inventory":
+                                openInventory()
+                        elif actionOne == "pray":
+                                player1.pray()
+                        elif actionOne == "help":
+                                print("Command List: nothing, stand still, inventory, map, look up, pray, quit, help")
+                            
 
                         else:
-                                        print("Invalid Command")
+                                print("Invalid Command")
 
 #5
 def ventiLation():
@@ -583,13 +602,17 @@ def ventiLation():
                                 print("Eventually a massive creature comes speeding towards you, you try to slide down the vent shaft but it grabs your leg and pulls you back up.")
                                 print("It starts eating the meat off your bones well you're still alive.")
                                 print("THE END!")
+                                Replay()
                                 sys.exit()
                         elif action == ("help"):
-                                print("Command List: stay, go lobby, inventory, map, help, quit")
+                                print("Command List: stay, look, go lobby, pray, inventory, map, help, quit")
                         elif action == ("quit"):
                                 player1.quitGame()
                         elif action == "map":
                                 Map()
+                        
+                        elif action == "pray":
+                                player1.pray()
 
                         elif action == "inventory":
                                 openInventory()
@@ -627,9 +650,10 @@ def ventiLation():
                                 print("Eventually a massive creature comes speeding towards you, you try to slide down the vent shaft but it grabs your leg and pulls you back up.")
                                 print("It starts eating the meat off your bones well you're still alive.")
                                 print("THE END!")
+                                Replay()
                                 sys.exit()
                         elif action == ("help"):
-                                print("Command List: stay, go lobby, help, quit, look")
+                                print("Command List: stay, go lobby, pray, map, inventory, help, quit, look")
                         elif action == ("quit"):
                                player1.quitGame()
                         elif action == "look":
@@ -640,6 +664,9 @@ def ventiLation():
                                 Map()
                         elif action == "inventory":
                                 openInventory()
+                        
+                        elif action == "pray":
+                                player1.pray()
                         else:
                                 print("Invalid Command")
 
@@ -670,10 +697,11 @@ def elevatoR():
                         elif action == ("press button"):
                                 print("The doors open and you're immeadiately set upon by a vicious Alien, it digs its claws through your eyes, puncturing your brain and killing you")
                                 print("THE END")
+                                Replay()
                                 sys.exit()
                                 i=1
                         elif action == ("help"):
-                                print("Command List: go up, press button, enter code, help, quit")
+                                print("Command List: go up, press button, map, inventory, pray, enter code, help, quit")
 
                         elif action == "look":
                                 print("You fall into a dimmly lit room filled with trash.")
@@ -694,7 +722,7 @@ def elevatoR():
                                 else:
                                         print("Nothing Happened")
                         elif action == "map":
-                                map()
+                                Map()
                         elif action == "inventory":
                                 openInventory()
                         elif action == "pray":
@@ -718,6 +746,7 @@ def elevatoR():
                         elif action == ("press button"):
                                 print("The doors open and you're immeadiately set upon by a vicious Alien, it digs its claws through your eyes, puncturing your brain and killing you")
                                 print("THE END")
+                                Replay()
                                 sys.exit()
                                 i=1
                         elif action == ("help"):
@@ -739,7 +768,7 @@ def elevatoR():
                                         Inventory.append("batteries")
                                         player1.updateInv()
                         elif action == "map":
-                                map()
+                                Map()
                         elif action == "inventory":
                                 openInventory()
                         elif action == "pray":
@@ -788,7 +817,7 @@ def trashCompactor():
                         player1.quitGame()
 
                 elif actionTrash == "map":
-                        map()
+                        Map()
                 elif actionTrash == "inventory":
                         openInventory()
                 elif actionTrash == "pray":
@@ -914,6 +943,18 @@ def secretRoom():
                                 elif action2 == ("teleporter"):
                                         print("You walk over to the teleporter and hit the button")
                                         Navigation[4][2]
+                                elif action2 == "map":
+                                        Map()
+                                elif action2 == "inventory":
+                                        openInventory()
+                                elif action2 == "pray":
+                                        player1.pray()
+                                elif action2 == "help":
+                                        print("Command List: safe, map, inventory, pray, help, quit")
+                                elif action2 == "quit":
+                                        player1.quitGame()
+                                else:
+                                        print("Invalid Command")
 
                 elif action == "teleport":
                         player1.teleport()
@@ -930,7 +971,7 @@ def secretRoom():
                         player1.quitGame()
 
                 elif action == "map":
-                        map()
+                        Map()
                 elif action == "help":
                         print("flashlight, look, inventory, pray, map, help, quit")
 
@@ -1171,8 +1212,8 @@ def elevatorRoom():
                     
             elif purpose == "yell":
                     
-                    if player1.yell() == "hi":
-                            print("hello there!")
+                    if player1.yell() == "YukoN":
+                            print("YukoN: Hey "+player1.name+"! It's me, Kevin McLester, aka YukoN. I hope you are eenjoying my game! This is just an easter egg! Enjoy!")
 
                     else:
                             print("nothing happened...\n")
