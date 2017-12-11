@@ -989,7 +989,9 @@ def colliSeum():
                 if action == "fight" or action == "use sword":
                         player1.Use("sword")
                         print("You charge the Gladiator with your sword and manage to kill him. \n He still has his armor on. \n A teleporter appears in the center of the arena. \n What do you do?")
+                        
                         while i == 0:
+                                action = input()
                                 if action == "take armor":
                                         player1.Take("armor")
                                 elif action == "map":
