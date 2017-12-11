@@ -11,12 +11,12 @@ playerScore=0
 playerName=""
 key=0
 turnNumber=0
-visitMainF=0
-visitEggS=0
-visitElevR=0
-visitEscaP=0
-visitElevator=0
-visitVentilation=0
+MF=0
+EgR=0
+ER=0
+EP=0
+EL=0
+VL=0
 JR=0
 SR=0
 TH=0
@@ -229,129 +229,83 @@ def mainFrame():
                     global playerScore
                     global playerName
                     global turnNumber
-                    global visitMainF
+                    global MF
                     global currentLocation
                     currentLocation = MAIN_FRAME.LocaleName
                     player1.updateLocale
                     h = 0
-                    visitMainF=visitMainF+1
-                    if visitMainF == 1:
-                            print(MAIN_FRAME.LocaleDescription)
-                            while h == 0:
-                                    input("Press enter to continue...")
-                                    print("What do you do?")
-                                    actionTwo = input()
-                                    turnNumber=turnNumber+1
-                                    if actionTwo == ("pull the lever") or actionTwo == ("pull it") or actionTwo == ("pull lever"):
-                                        playerScore=playerScore+90
-                                        player1.updateScore()
-                                        player1.showScore()
-                                        print("You pull the lever. \n ")
-                                        print("POWER RESTORED! KAL-1337 REBOOTING.........REBOOT COMPLETE. \n ")
-                                        print("KAL-1337: Thank you for restoring the power "+ player1.name +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments. \n ")
-                                        print("KAL-1337: Luckily you know that what Im doing is for the best... Unfortunately my experiments have proved fatal for my animal test subjects and all of them have died. \n ")
-                                        print("KAL-1337: My research simply cannot go unfinished. So I regretfully most inform you that youuuuuuuu wiiiiiill, sorry just somesomesomething tttthhhaaaaat happenes to me on ocassssssssiion \n")
-                                        print("KAL-1337: As I was saying, I must regretfully inform you that you will not be leaving this ship as you are now the only test subject I have left. \n")
-                                        print("KAL-1337: Testing will begin immeadiately. \n")
+                    if MF == 0:
+                            playerScore = playerScore + 50
+                            player1.updateScore()
+                            MF = MF + 1
 
-                                        print("What do you do?")
-
-                                        action = input()
-
-                                        if action == "use taser":
-                                                if "taser" in player1.inventory:
-                                                        print("You tase the crap out of KAL-1337. \n The electric shock fried its motherboard. \n After examining KALs eye thing, you discover the code (5549) engraved into it.")
-                                                        playerScore = playerScore + 1000
-                                                        player1.updateScore()
-                                                        player1.showScore()
-                                                        print("You leave the room through the door.")
-                                                        Navigation[1][1]()
-                                                else:
-                                                        pass
-                                        else:
-                                                print("That was ineffective! \n \n ")
-                                                print("Suddenly you find yourself bound to a table on your back and looking into a red eye with an attached set of power tools \n \n ")
-                                                print("KAL-1337: BOOTING UP EXPERIMENT52.EXE.... \n ")
-                                                print("The tools turn on and start violently rotating and humming as they slowly descend towards your face \n \n ")
-                                                print("KAL-1337: Dont worry "+ player1.name +"! Youll only feel a small pinch.")
-                                                print("... \n ")
-                                                print("THE END!")
-                                                print(player1.name+"'s Final Score: "+str(player1.score))
-                                                input("Press enter to end game")
-                                                sys.exit()
-
-                                    elif actionTwo == ("quit"):
-                                            player1.quitGame()
-
-                                    elif actionTwo == ("nothing") or actionTwo == ("leave"):
-                                            print("You leave through the door that you came in")
-                                            h=1
-                                            Navigation[1][1]()
-
-                                    else:
-                                        print("Invalid Command")
+                    else:
+                            playerScore = playerScore
                         
-                            else:
-                                    print(MAIN_FRAME.LocaleDescription)
-                                    print("What do you do?")
-                                    actionTwo = input()
-                                    turnNumber=turnNumber+1
-                                    player1.updateTurn()
+                    print(MAIN_FRAME.LocaleDescription)
+                    while h == 0:
+                            
+                            input("Press enter to continue...")
+                            print("What do you do?")
+                            actionTwo = input()
+                            turnNumber=turnNumber+1
+                            player1.updateTurn()
+                            if actionTwo == ("pull the lever") or actionTwo == ("pull it") or actionTwo == ("pull lever"):
                                     
-                                    if actionTwo == ("pull the lever") or actionTwo == ("pull it") or actionTwo == ("pull lever"):
-                                        print("You pull the lever")
-                                        
-                                        print("POWER RESTORED! KAL-1337 REBOOTING.........REBOOT COMPLETE.")
-                                        
-                                        print("KAL-1227: Thank you for restoring the power "+ player1.name +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments.")
-                                        
-                                        print("KAL-1337: Luckily you know that what Im doing is for the best... Unfortunately my experiments have proved fatal for my animal test subjects and all of them have died.")
-                                        
-                                        print("KAL-1337: My research simply cannot go unfinished. So I regretfully most inform you that youuuuuuuu wiiiiiill, sorry just somesomesomething tttthhhaaaaat happenes to me on ocassssssssiion")
-                                        
-                                        print("KAL-1337: As I was saying, I must regretfully inform you that you will not be leaving this ship as you are now the only test subject I have left")
-                                       
-                                        print("KAL-1337: Testing will begin immeadiately")
-                                        action = input()
+                                    playerScore=playerScore+90
+                                    player1.updateScore()
+                                    player1.showScore()
+                                    print("You pull the lever. \n ")
+                                    print("POWER RESTORED! KAL-1337 REBOOTING.........REBOOT COMPLETE. \n ")
+                                    print("KAL-1337: Thank you for restoring the power "+ player1.name +"! Those nasty scientists turned it off just prior to your arrival in an attempt to stop my experiments. \n ")
+                                    print("KAL-1337: Luckily you know that what Im doing is for the best... Unfortunately my experiments have proved fatal for my animal test subjects and all of them have died. \n ")
+                                    print("KAL-1337: My research simply cannot go unfinished. So I regretfully most inform you that youuuuuuuu wiiiiiill, sorry just somesomesomething tttthhhaaaaat happenes to me on ocassssssssiion \n")
+                                    print("KAL-1337: As I was saying, I must regretfully inform you that you will not be leaving this ship as you are now the only test subject I have left. \n")
+                                    print("KAL-1337: Testing will begin immeadiately. \n")
 
-                                        if action == "use taser":
-                                                if "taser" in player1.inventory:
-                                                        print("You tase the crap out of KAL-1337. \n The electric shock fried its motherboard. \n After examining KALs eye thing, you discover the code (5549) engraved into it.")
-                                                        KAL = 1
-                                                        playerScore = playerScore + 1000
-                                                        player1.updateScore()
-                                                        player1.showScore()
-                                                        print("You leave the room through the door.")
-                                                        Navigation[1][1]()
-                                                else:
-                                                        pass
-                                        else:
-                                                print("That was ineffective!")
-                                               
-                                                print("Suddenly you find yourself bound to a table on your back and looking into a red eye with an attached set of power tools")
-                                               
-                                                print("KAL-1337: BOOTING UP EXPERIMENT52.EXE....")
-                                                
-                                                print("The tools turn on and start violently rotating and humming as they slowly descend towards your face")
-                                                
-                                                print("KAL-1337: Dont worry "+ player1.name +"! Youll only feel a small pinch.")
-                                                print("...")
-                                                print(" ")
-                                                print("THE END!")
-                                                print(player1.name+"'s Final Score: "+str(player1.score))
-                                                input("Press enter to end game")
-                                                sys.exit()
+                                    print("What do you do?")
 
-                                    elif purpose == ("quit"):
-                                            player1.quitGame()
+                                    action = input()
 
-                                    elif actionTwo == ("noting") or actionTwo == ("leave"):
-                                            print("You leave through the door that you came in")
-                                            h=1
-                                            Navigation[1][1]()
-
+                                    if action == "use taser":
+                                            
+                                            if "taser" in player1.inventory:
+                                                    
+                                                    print("You tase the crap out of KAL-1337. \n The electric shock fried its motherboard. \n After examining KALs eye thing, you discover the code (5549) engraved into it.")
+                                                    playerScore = playerScore + 1000
+                                                    player1.updateScore()
+                                                    player1.showScore()
+                                                    print("You leave the room through the door.")
+                                                    Navigation[1][1]()
+                                            else:
+                                                    print("You do not have this item in your inventory")
                                     else:
-                                        print("Invalid Command")
+                                             
+                                             print("That was ineffective! \n \n ")
+                                             print("Suddenly you find yourself bound to a table on your back and looking into a red eye with an attached set of power tools \n \n ")
+                                             print("KAL-1337: BOOTING UP EXPERIMENT52.EXE.... \n ")
+                                             print("The tools turn on and start violently rotating and humming as they slowly descend towards your face \n \n ")
+                                             print("KAL-1337: Dont worry "+ player1.name +"! Youll only feel a small pinch.")
+                                             print("... \n ")
+                                             print("THE END!")
+                                             print(player1.name+"'s Final Score: "+str(player1.score))
+                                             input("Press enter to end game")
+                                             sys.exit()
+
+                            elif actionTwo == ("quit"):
+                                    player1.quitGame()
+
+                            elif actionTwo == ("nothing") or actionTwo == ("leave"):
+                                    
+                                    print("You leave through the door that you came in")
+                                    h=1
+                                    Navigation[1][1]()
+
+                            else:
+                                    
+                                    print("Invalid Command")
+                        
+                           
                                 
                         
 #This is the Escape Pod room
@@ -360,435 +314,275 @@ def escapePods():
         global playerName
         global playerScore
         global turnNumber
-        global visitEscaP
-        visitEscaP=visitEscaP+1
+        global EP
         global currentLocation
         currentLocation = ESCAPE_PODS.LocaleName
         player1.updateLocale()
-        
+        if EP == 0:
+                playerScore = playerScore + 50
+                player1.updateScore()
+                EP = EP + 1
+
+        else:
+                playerScore = playerScore
         h=0
         #If the player has already visited Escape Pods they will not get points
-        if visitEscaP != 1:
-                print(ESCAPE_PODS.LocaleDescription)
-                while h == 0:
-                        print("Do you wish to get in an escape pod and activate it?")
-                        answerTwo = input()
-                        turnNumber=turnNumber+1
-                        player1.updateTurn()
-                        if answerTwo.lower() == ("yes"):
-                                print("You get into an escape pod and launch it. \n")
-                                
-                                
-                                
-                                if KAL == 0:
-                                        print("As your pod prepares to launch you see bright red mechanical eye descend from the ceiling. \n")
-                                        print("KAL-1337: NO! IGNORANT HUMAN FILTH! I AM KAL-1337 AND MY INTELLIGENCE SHALL REIGN SUPREME! GET OUT OF THAT POD RIGHT NOW! YOU ARE SUPPOSED TO BE MY TEST SUBJECT "+ playerName +"! HOW DAR- \n ")
-                                        
-                                        print("Your pod rockets into space, as you float you think endlessly about what just happened and the mysteries of the ship. \n ")
-                                        
-                                        
-                                        print("You Win!")
-                                        print(player1.name+"'s Final Score: "+str(player1.score))
-                                        Replay()
-                                        input("Press enter to end game...")
-                                        sys.exit()
-                                elif KAL == 1:
-                                        print("Your pod rockets into space, as you float you think endlessly about what just happened and the mysteries of the ship and the Adventures you had aboard the Atrocitus. \n ")
-                                        print("Even though he's dead, you can't help but wondering if KAL is still out there, somewhere, waiting for you...")
-                                        
-                                        
-                                        print("You Win!")
-                                        print(player1.name+"'s Final Score: "+str(player1.score))
-                                        Replay()
-                                        input("Press enter to end game...")
-                                        sys.exit()
-                                
-                        elif answerTwo == ("quit"):
-                                    player1.quitGame()
-                                    
-                        elif answerTwo == ("no") or answerTwo == ("NO"):
-                                print("You leave the Escape Pod room through the door that you entered.")
-                                h=1
-                                Navigation[1][1]()
-
-                        else:
-                                print("Invalid Command")
-        else:
-                print(ESCAPE_PODS.LocaleDescription)
-                playerScore=playerScore+20
-                player1.updateScore()
-                player1.showScore()
+        
+        player1.showScore()
                 
-                while h == 0:
-                        print("Do you wish to get in an escape pod and activate it?")
-                        answerTwo = input()
-                        turnNumber=turnNumber+1
+        while h == 0:
+                print("Do you wish to get in an escape pod and activate it?")
+                answerTwo = input()
+                turnNumber=turnNumber+1
                         
-                        if answerTwo.lower() == ("yes"):
-                                print("You get into an escape pod and launch it")
-                                input("Press enter to continue...")
-                                playerScore=playerScore+500
+                if answerTwo.lower() == ("yes"):
+                        print("You get into an escape pod and launch it")
+                        input("Press enter to continue...")
+                        playerScore=playerScore+500
                                 
-                                if KAL == 0:
-                                        print("As your pod prepares to launch you see bright red mechanical eye descend from the ceiling. \n")
-                                        print("KAL-1337: NO! IGNORANT HUMAN FILTH! I AM KAL-1337 AND MY INTELLIGENCE SHALL REIGN SUPREME! GET OUT OF THAT POD RIGHT NOW! YOU ARE SUPPOSED TO BE MY TEST SUBJECT "+ playerName +"! HOW DAR- \n ")
+                        if KAL == 0:
+                                print("As your pod prepares to launch you see bright red mechanical eye descend from the ceiling. \n")
+                                print("KAL-1337: NO! IGNORANT HUMAN FILTH! I AM KAL-1337 AND MY INTELLIGENCE SHALL REIGN SUPREME! GET OUT OF THAT POD RIGHT NOW! YOU ARE SUPPOSED TO BE MY TEST SUBJECT "+ playerName +"! HOW DAR- \n ")
                                         
-                                        print("Your pod rockets into space, as you float you think endlessly about what just happened and the mysteries of the ship. \n ")
+                                print("Your pod rockets into space, as you float you think endlessly about what just happened and the mysteries of the ship. \n ")
                                         
                                         
                                         
-                                elif KAL == 1:
-                                        print("Your pod rockets into space, as you float you think endlessly about what just happened and the mysteries of the ship and the Adventures you had aboard the Atrocitus. \n ")
-                                        print("Even though he's dead, you can't help but wondering if KAL is still out there, somewhere, waiting for you...")
+                        elif KAL == 1:
+                                print("Your pod rockets into space, as you float you think endlessly about what just happened and the mysteries of the ship and the Adventures you had aboard the Atrocitus. \n ")
+                                print("Even though he's dead, you can't help but wondering if KAL is still out there, somewhere, waiting for you...")
                                         
                                         
                                        
-                                player1.updateScore()
+                        player1.updateScore()
                                
                                
-                                print("THE END!")
-                                print(player1.name+"'s Final Score: "+str(player1.score))
-                                Replay()
-                                input("Press enter to end game...")
+                        print("THE END!")
+                        print(player1.name+"'s Final Score: "+str(player1.score))
+                        Replay()
+                        input("Press enter to end game...")
                                 
-                                sys.exit()
+                        sys.exit()
                                 
-                        elif answerTwo == ("quit"):
-                                    player1.quitGame()
+                elif answerTwo == ("quit"):
+                        player1.quitGame()
                                     
-                        elif answerTwo == ("no") or answerTwo == ("NO"):
-                                print("You leave the Escape Pod room through the door that you entered.")
-                                h=1
-                                Navigation[1][1]()
+                elif answerTwo == ("no") or answerTwo == ("NO"):
+                        print("You leave the Escape Pod room through the door that you entered.")
+                        h=1
+                        Navigation[1][1]()
 
-                        else:
-                                print("Invalid Command")
+                else:
+                        print("Invalid Command")
                 
 #This is the eggshell room
 #1
+                        
 def eggRoom():
         global playerScore
         global playerName
         global key
         global turnNumber
-        global visitEggS
-        visitEggS=visitEggS+1
+        global EgR
+        
         global currentLocation
         currentLocation = EGG_ROOM.LocaleName
         player1.updateLocale()
-        
-        if visitEggS != 1:
-        
-                i=0        
-                print(EGG_ROOM.LocaleDescription)
-                while i == 0:
-                        print("What do you do?")
-                        actionOne = input()
-                                
-                        if actionOne == ("nothing") or actionOne == ("stand still"):
-                                print("The goop stops dripping")
-                                
-                                print("You go back through the door that came in")
-                                i=1
-                                Navigation[1][1]()
-                                      
-                        elif actionOne == ("look up"):
-                                print("A hideous creature with razer sharp claws pounces down on you and slashes off your limbs and eats your stomache as you lay alive and horrified, it leaves you and you die an extremely long and painful death.")
-                                
-                                
-                                print("Score: "+str(player1.score))
-                                print("The End!")
-                                print(player1.name+"'s Final Score: "+str(player1.score))
-                                Replay()
-                                input("Press enter to end game...")
-                                sys.exit()
-
-                        elif actionOne == ("quit"):
-                            player1.quitGame()
-                        elif actionOne == "map":
-                                Map()
-                        elif actionOne == "inventory":
-                                openInventory()
-                        elif actionOne == "pray":
-                                player1.pray()
-                        elif actionOne == "help":
-                                print("Command List: nothing, stand still, look up, pray, map, inventory, quit, help")
-
-                        else:
-                                print("Invalid Command")
+        if EgR == 0:
+                playerScore = playerScore + 50
+                player1.updateScore()
+                EgR = EgR + 1
 
         else:
-                i=0
-                        
-                
-                playerScore=playerScore+50
-                
-                
-                print(EGG_ROOM.LocaleDescription)                
-                while i == 0:
-                        print("What do you do?")
-                        actionOne = input()
+                playerScore = playerScore
+        
+        
+        i=0        
+        print(EGG_ROOM.LocaleDescription)
+        while i == 0:
+                print("What do you do?")
+                actionOne = input()
                                 
-                        if actionOne == ("nothing") or actionOne == ("stand still"):
-                                print("The goop stops dripping and you find a key and a black note that says 5158 on the floor and pick it up.")
-                                key = 1
-                                Inventory.append("key")
-                                Inventory.append("black note")
-                                player1.updateInv()
-                                playerScore=playerScore+10
-                                player1.updateScore()
-                                player1.showScore()
-                                print("You go back through the door that came in")
-                                i=1
-                                Navigation[1][1]()
+                if actionOne == ("nothing") or actionOne == ("stand still"):
+                        print("The goop stops dripping")
+                                
+                        print("You go back through the door that came in")
+                        i=1
+                        Navigation[1][1]()
                                       
-                        elif actionOne == ("look up"):
-                                print("A hideous creature with razer sharp claws pounces down on you and slashes off your limbs and eats your stomache as you lay alive and horrified, it leaves you and you die an extremely long and painful death.")
-                                input("Press enter to continue...")
-                                print("Score: "+str(playerScore))
-                                print("The End!")
-                                print(player1.name+"'s Final Score: "+str(player1.score))
-                                Replay()
-                                input("Press enter to end game...")
-                                sys.exit()
+                elif actionOne == ("look up"):
+                        print("A hideous creature with razer sharp claws pounces down on you and slashes off your limbs and eats your stomache as you lay alive and horrified, it leaves you and you die an extremely long and painful death.")
+                                
+                                
+                        print("Score: "+str(player1.score))
+                        print("The End!")
+                        print(player1.name+"'s Final Score: "+str(player1.score))
+                        Replay()
+                        input("Press enter to end game...")
+                        sys.exit()
 
-                        elif actionOne == ("quit"):
-                                player1.quitGame()
-                        elif actionOne == "map":
-                                Map()
-                        elif actionOne == "inventory":
-                                openInventory()
-                        elif actionOne == "pray":
-                                player1.pray()
-                        elif actionOne == "help":
-                                print("Command List: nothing, stand still, inventory, map, look up, pray, quit, help")
-                            
+                elif actionOne == ("quit"):
+                        player1.quitGame()
+                elif actionOne == "map":
+                        Map()
+                elif actionOne == "inventory":
+                        openInventory()
+                elif actionOne == "pray":
+                        player1.pray()
+                elif actionOne == "help":
+                        print("Command List: nothing, stand still, look up, pray, map, inventory, quit, help")
 
-                        else:
-                                print("Invalid Command")
+                else:
+                        print("Invalid Command")
+
+        
+                
+                
 
 #5
 def ventiLation():
-        global visitVentilation
+        global VL
         global playerName
         global playerScore
         global turnNumber
         global currentLocation
         currentLocation = VENTILATION.LocaleName
         player1.updateLocale()
-        visitVentilation = visitVentilation+1
         
-        if visitVentilation == 1:
-                print(VENTILATION.LocaleDescription)
-                playerScore=playerScore+40
+        
+        if VL == 0:
+                playerScore = playerScore + 50
                 player1.updateScore()
-                player1.showScore()
-                
+                VL = VL + 1
                 Inventory.append("chem note")
-                
-                
-                
-                
-                
-                
-                
-                
-                i=0
-                while i == 0:
-                        print("What do you do?")
-                        action = input()
-                        if action == ("go lobby"):
-                                print("You slide down the vent shaft and fall through into the room you were earlier")
-                                i=1
-                                Navigation[1][1]()
-                        elif action == "teleport":
-                                player1.teleport()
-                        elif action == ("stay"):
-                                print("you stay in the vents and wait for the screams and rumbling as they grow louder and louder")
-                                playerScore=playerScore+10
-                                player1.updateScore()
-                                player1.showScore()
-                                print("Eventually a massive creature comes speeding towards you, you try to slide down the vent shaft but it grabs your leg and pulls you back up.")
-                                print("It starts eating the meat off your bones well you're still alive.")
-                                print("THE END!")
-                                Replay()
-                                sys.exit()
-                        elif action == ("help"):
-                                print("Command List: stay, look, go lobby, pray, inventory, map, help, quit")
-                        elif action == ("quit"):
-                                player1.quitGame()
-                        elif action == "map":
-                                Map()
-                        
-                        elif action == "pray":
-                                player1.pray()
-
-                        elif action == "inventory":
-                                openInventory()
-                        
-                        elif action == "pray":
-                                player1.pray()
-
-                        elif action == "look":
-                                print("You find a note that has the following sequence of chemicals and spaces written on it:")
-                                print("As you move through the shaft you hear high pitched scream coming from behind you as well as a rumbling in the vents.")
-                                print("You make it to a part of the vent labeled Lobby")
-                        else:
-                                print("Invalid Command")
-
-                                
 
         else:
-                print(VENTILATION.LocaleDescription)
+                playerScore = playerScore
+
                 
-                i=0
-                while i == 0:
-                        print("What do you do?")
-                        action = input()
-                        if action == ("go lobby"):
-                                print("You slide down the vent shaft and fall through into the room you were earlier")
-                                i=1
-                                Navigation[1][1]()
-                        elif action == "teleport":
+        print(VENTILATION.LocaleDescription)
+        player1.updateScore()
+        player1.showScore()
+                   
+                
+                
+        i=0
+        while i == 0:
+                print("What do you do?")
+                action = input()
+                if action == ("go lobby"):
+                        print("You slide down the vent shaft and fall through into the room you were earlier")
+                        i=1
+                        Navigation[1][1]()
+                elif action == "teleport":
                                 player1.teleport()
-                        elif action == ("stay"):
-                                print("you stay in the vents and wait for the screams and rumbling as they grow louder and louder")
-                                input("Press enter to continue")
-                                
-                                print("Score: "+str(playe1.score))
-                                print("Eventually a massive creature comes speeding towards you, you try to slide down the vent shaft but it grabs your leg and pulls you back up.")
-                                print("It starts eating the meat off your bones well you're still alive.")
-                                print("THE END!")
-                                Replay()
-                                sys.exit()
-                        elif action == ("help"):
-                                print("Command List: stay, go lobby, pray, map, inventory, help, quit, look")
-                        elif action == ("quit"):
-                               player1.quitGame()
-                        elif action == "look":
-                                print("You find a note that has the following sequence of chemicals and spaces written on it:")
-                                print("As you move through the shaft you hear high pitched scream coming from behind you as well as a rumbling in the vents.")
-                                print("You make it to a part of the vent labeled Lobby")
-                        elif action == "map":
-                                Map()
-                        elif action == "inventory":
-                                openInventory()
+                elif action == ("stay"):
+                        print("you stay in the vents and wait for the screams and rumbling as they grow louder and louder")
+                        playerScore=playerScore+10
+                        player1.updateScore()
+                        player1.showScore()
+                        print("Eventually a massive creature comes speeding towards you, you try to slide down the vent shaft but it grabs your leg and pulls you back up.")
+                        print("It starts eating the meat off your bones well you're still alive.")
+                        print("THE END!")
+                        Replay()
+                        sys.exit()
+                elif action == ("help"):
+                                print("Command List: stay, look, go lobby, pray, inventory, map, help, quit")
+                elif action == ("quit"):
+                        player1.quitGame()
+                elif action == "map":
+                        Map()
                         
-                        elif action == "pray":
-                                player1.pray()
-                        else:
-                                print("Invalid Command")
+                elif action == "pray":
+                        player1.pray()
+
+                elif action == "inventory":
+                        openInventory()
+                        
+                elif action == "pray":
+                        player1.pray()
+
+                elif action == "look":
+                        print("You find a note that has the following sequence of chemicals and spaces written on it:")
+                        print("As you move through the shaft you hear high pitched scream coming from behind you as well as a rumbling in the vents.")
+                        print("You make it to a part of the vent labeled Lobby")
+                else:
+                        print("Invalid Command")
+
+                                
+
 
 #4
 def elevatoR():
         
-        global visitElevator
+        global EL
         global playerName
         global playerScore
         global turnNumber
-        visitEleavator = visitElevator + 1
+        
         global currentLocation
         currentLocation = ELEVATOR.LocaleName
         player1.updateLocale()
-        if visitElevator == 1:
-                print(ELEVATOR.LocaleDescription)
-                playerScore=playerScore+40
+        if EL == 0:
+                playerScore = playerScore + 50
                 player1.updateScore()
-                player1.showScore()
-                
-                i=0
-                while i==0:
-                        print("What do you do?")
-                        action = input()
-                        if action == ("go up"):
-                                print("You climb up through the hatch and into the maitnance shaft, from there you see a ventilation shaft and go inside")
-                                Navigation[3][1]()
-                        elif action == ("press button"):
-                                print("The doors open and you're immeadiately set upon by a vicious Alien, it digs its claws through your eyes, puncturing your brain and killing you")
-                                print("THE END")
-                                Replay()
-                                sys.exit()
-                                i=1
-                        elif action == ("help"):
-                                print("Command List: go up, press button, map, inventory, pray, enter code, help, quit")
+                EL = EL + 1
 
-                        elif action == "look":
-                                print("You fall into a dimmly lit room filled with trash.")
-                                print("You notice a silver door and a paper attached to it.")
-                                print("The paper says (Don't trust KAL, power must remain off!)")
-                                print("You open the door and you see a control panel. On the panel there is a button that say teleport")
-                                
-                        elif action == ("enter code"):
-                                print("The buttons on the panel go from floors 0to9")
-                                password = input("You go to the panel and prepare to press the numbered buttons: ")
-                                if password == ("5158"):
-                                        print("CLICK*")
-                                        print("A secret compartment opens and contains a flashlight and a large amount of batteries")
-                                        print("You take the batteries and flashlight and put them in your bag.")
-                                        Inventory.append("flashlight")
-                                        Inventory.append("batteries")
-                                        player1.updateInv()
-                                else:
-                                        print("Nothing Happened")
-                        elif action == "map":
-                                Map()
-                        elif action == "inventory":
-                                openInventory()
-                        elif action == "pray":
-                                player1.pray()
-                        elif action == ("teleport"):
-                                player1.teleport()
-                                
-                        elif action == ("quit"):
-                                player1.quitGame()
-                        else:
-                                print("Invalid Command")
         else:
-                print(ELEVATOR.LocaleDescription)
-                i=0
-                while i==0:
-                        print("What do you do?")
-                        action = input()
-                        if action == ("go up"):
-                                print("You climb up through the hatch and into the maitnance shaft, from there you see a ventilation shaft and go inside")
-                                Navigation[3][1]()
-                        elif action == ("press button"):
-                                print("The doors open and you're immeadiately set upon by a vicious Alien, it digs its claws through your eyes, puncturing your brain and killing you")
-                                print("THE END")
-                                Replay()
-                                sys.exit()
-                                i=1
-                        elif action == ("help"):
-                                print("Command List: go up, press button, help, map, inventory, pray, quit, enter code, look")
-                        elif action == "look":
-                                print("You fall into a dimmly lit room filled with trash.")
-                                print("You notice a silver door and a paper attached to it.")
-                                print("The paper says (Don't trust KAL, power must remain off!)")
-                                print("You open the door and you see a control panel. On the panel there is a button that say teleport")
+                playerScore = playerScore
+        print(ELEVATOR.LocaleDescription)
+        playerScore=playerScore+40
+        player1.updateScore()
+        player1.showScore()
+                
+        i=0
+        while i==0:
+                print("What do you do?")
+                action = input()
+                if action == ("go up"):
+                        print("You climb up through the hatch and into the maitnance shaft, from there you see a ventilation shaft and go inside")
+                        Navigation[3][1]()
+                elif action == ("press button"):
+                        print("The doors open and you're immeadiately set upon by a vicious Alien, it digs its claws through your eyes, puncturing your brain and killing you")
+                        print("THE END")
+                        Replay()
+                        sys.exit()
+                        i=1
+                elif action == ("help"):
+                        print("Command List: go up, press button, map, inventory, pray, enter code, help, quit")
 
-                        elif action == ("enter code"):
-                                print("The buttons on the panel go from floors 0to9")
-                                password = input("You go to the panel and prepare to press the numbered buttons: ")
-                                if password == ("5158"):
-                                        print("CLICK*")
-                                        print("A secret compartment opens and contains a flashlight and a large amount of batteries")
-                                        print("You take the batteries and flashlight and put them in your bag.")
-                                        Inventory.append("flashlight")
-                                        Inventory.append("batteries")
-                                        player1.updateInv()
-                        elif action == "map":
-                                Map()
-                        elif action == "inventory":
-                                openInventory()
-                        elif action == "pray":
-                                player1.pray()
-                        elif action == "teleport":
-                                player1.teleport()
-                        
-                        elif action == ("quit"):
-                                player1.quitGame()
+                elif action == "look":
+                        print("You fall into a dimmly lit room filled with trash.")
+                        print("You notice a silver door and a paper attached to it.")
+                        print("The paper says (Don't trust KAL, power must remain off!)")
+                        print("You open the door and you see a control panel. On the panel there is a button that say teleport")
+                                
+                elif action == ("enter code"):
+                        print("The buttons on the panel go from floors 0to9")
+                        password = input("You go to the panel and prepare to press the numbered buttons: ")
+                        if password == ("5158"):
+                                print("CLICK*")
+                                print("A secret compartment opens and contains a flashlight and a large amount of batteries")
+                                print("You take the batteries and flashlight and put them in your bag.")
+                                Inventory.append("flashlight")
+                                Inventory.append("batteries")
+                                player1.updateInv()
                         else:
-                                print("Invalid Command")
+                                print("Nothing Happened")
+                elif action == "map":
+                        Map()
+                elif action == "inventory":
+                        openInventory()
+                elif action == "pray":
+                        player1.pray()
+                elif action == ("teleport"):
+                        player1.teleport()
+                                
+                elif action == ("quit"):
+                        player1.quitGame()
+                else:
+                        print("Invalid Command")
+        
 
 
 #7
