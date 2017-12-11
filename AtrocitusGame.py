@@ -232,6 +232,7 @@ def mainFrame():
                     global playerName
                     global turnNumber
                     global MF
+                    global KAL
                     global currentLocation
                     currentLocation = MAIN_FRAME.LocaleName
                     player1.updateLocale
@@ -274,6 +275,7 @@ def mainFrame():
                                             if "taser" in player1.inventory and "batteries" in player1.inventory:
                                                     
                                                     print("You tase the crap out of KAL-1337. \n The electric shock fried its motherboard. \n After examining KALs eye thing, you discover the code (5549) engraved into it.")
+                                                    KAL = KAL + 1
                                                     playerScore = playerScore + 1000
                                                     player1.updateScore()
                                                     player1.showScore()
@@ -320,6 +322,7 @@ def escapePods():
         global playerScore
         global turnNumber
         global EP
+        global KAL
         global currentLocation
         currentLocation = ESCAPE_PODS.LocaleName
         player1.updateLocale()
