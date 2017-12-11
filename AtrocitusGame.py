@@ -1050,7 +1050,7 @@ def elevatorRoom():
                Navigation[1][0]()
             
             elif purpose == ("go forward"):
-                if key == 0:
+                if "key" not in player1.inventory:
                     print("The door is locked")
                     input("Press enter to continue...")
                 else:
